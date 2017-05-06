@@ -14,3 +14,20 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+@font-face {
+  font-family: Irmologion; /* имя шрифта для CSS правил */
+  src: local("Irmologion"), /* проверяем наличие шрифта в ОС пользователя */
+  url(../assets/fonts/IrmIEUcs.ttf); /* если шрифт не установлен, тогда загружаем его по указанному пути */
+}
+
+.irmologion {
+  font-family: Irmologion !important;
+  font-weight: 300 !important;
+  text-shadow: none !important;
+}
+.irmologion .hh,.ui-li-count {
+  font-family: Times !important;
+}
+
+.irmologion h1,h2,h3 { font-weight: 400 !important; }

@@ -15,5 +15,4 @@ export class HomePage {
   goSettings(): void {
     this.navCtrl.push(SettingsPage);
   }
-
 }
