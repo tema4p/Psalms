@@ -28,7 +28,6 @@ export class MyApp {
 
     this.pages.push({ item: other['ustav'], component: PageView });
     this.pages.push({ item: other['start'], component: PageView });
-    this.pages.push({ item: other['end'], component: PageView });
 
     for (let item in kafizma) {
       this.pages.push({
@@ -37,10 +36,10 @@ export class MyApp {
       })
     }
 
+    this.pages.push({ item: other['end'], component: PageView });
     this.pages.push({ item: other['posled'], component: PageView });
     this.pages.push({ item: other['pomannik'], component: PageView });
     this.pages.push({ item: other['info'], component: PageView });
-    this.pages.push({ item: other['slovar'], component: PageView });
   }
 
   initializeApp() {

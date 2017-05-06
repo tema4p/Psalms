@@ -1,10 +1,4 @@
-export class PsalmRus {
-    public static getKafizma(n: string): any {
-        return jsonContent[n];
-    }
-}
-
-const jsonContent: any = {
+window.psalmRus = {
     '01': { data: ` 
     <h3>Кафи&#769;сма пе&#769;рвая   </h3>
     <p class="namepsal">Псалом 1</p>
