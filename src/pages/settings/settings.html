@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Настройки</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Текст:</ion-label>
+      <ion-select [(ngModel)]="settings.textSource">
+        <ion-option value="hh">в гражданской орфографии</ion-option>
+        <ion-option value="cs">на церковнославянском</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Размер шрифта:</ion-label>
+      <ion-select [(ngModel)]="settings.fontSize">
+        <ion-option value="{{n}}" *ngFor="let n of fontsRange">{{n}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Шрифт:</ion-label>
+      <ion-select [(ngModel)]="settings.fontFamily">
+        <ion-option value="{{n}}" *ngFor="let n of fonts">{{n}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Цветовая схема:</ion-label>
+      <ion-select [(ngModel)]="settings.theme">
+        <ion-option value="b">Ночная</ion-option>
+        <ion-option value="a">Обычная</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Текст по ширине</ion-label>
+      <ion-checkbox [(ngModel)]="settings.justify"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Переносы в строках</ion-label>
+      <ion-checkbox [(ngModel)]="settings.perenos"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Постраничный режим</ion-label>
+      <ion-checkbox [(ngModel)]="settings.pageMode"></ion-checkbox>
+    </ion-item>
+
+    <!-- Для русского языка -->
+
+    <ion-item *ngIf="settings.textSource === 'hh'">
+      <ion-label>переносы в словах</ion-label>
+      <ion-checkbox [(ngModel)]="settings.hyphens"></ion-checkbox>
+    </ion-item>
+
+    <ion-item *ngIf="settings.textSource === 'hh'">
+      <ion-label>раскрыть молитвы</ion-label>
+      <ion-checkbox [(ngModel)]="settings.adds"></ion-checkbox>
+    </ion-item>
+
+    <ion-item *ngIf="settings.textSource === 'hh'">
+      <ion-label>молитвы за упокой</ion-label>
+      <ion-checkbox [(ngModel)]="settings.repose"></ion-checkbox>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,26 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Оглавление</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <ng-container *ngFor="let p of pages">
+        <button menuClose ion-item
+                (click)="openPage(p, p.item)"
+                *ngIf="p.item.rus">
+          {{p.item.rus}}
+        </button>
+      </ng-container>
+      <button menuClose ion-item >
+        test
+      </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
