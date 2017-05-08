@@ -10,7 +10,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{title}}</ion-title>
+    <ion-title [ngClass]="{'irmologion' : (settings.textSource === 'cs')}">{{title}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="bookMark()">
         <ion-icon name="ios-bookmark"></ion-icon>
@@ -24,6 +24,16 @@
 </ion-header>
 
 
-<ion-content padding>
-  <div [innerHTML]="content.data"></div>
+<ion-content padding [ngClass]="settings.theme">
+
+  <div [innerHTML]="content.data"
+       [ngClass]="{'irmologion' : (settings.textSource === 'cs'),
+                   'noPerenos':(!settings.perenos),
+                   'hyphens':(settings.hyphens),
+                   'justify':(settings.justify)}"
+
+       [ngStyle]="{'fontFamily': (settings.textSource === 'hh') ? settings.fontFamily : false,
+                   'font-size': settings.fontSize + 'px'}">
+
+  </div>
 </ion-content>

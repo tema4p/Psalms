@@ -1,10 +1,11 @@
 page-page-view {
+  hyphens: auto;
 
   .namepsal + p {
     color: #E50000;
     text-align: center;
   }
-  .ui-page-theme-b .namepsal + p { color: #ff4f4f;}
+  .night .namepsal + p { color: #ff4f4f;}
 
   h3 {
     display: none;
@@ -14,7 +15,7 @@ page-page-view {
     color: #e50000;
   }
 
-  .ui-page-theme-b p:first-letter { color: #ff4f4f;}
+  .night p:first-letter { color: #ff4f4f;}
 
 
   p.buk {
@@ -38,14 +39,14 @@ page-page-view {
     font-style: italic;
   }
 
-  .ui-page-theme-b .com, .ui-page-theme-b .namepsal { color: #ff4f4f;}
+  .night .com, .night .namepsal { color: #ff4f4f;}
 
 
   .red {
     color: #e50000;
   }
 
-  .ui-page-theme-b .red { color: #ff4f4f;}
+  .night .red { color: #ff4f4f;}
 
 
   .center {
@@ -61,14 +62,14 @@ page-page-view {
     padding: 0 5px;
     color: #e50000;
   }
-  .ui-page-theme-b .com a:link,
-  .ui-page-theme-b .com a:hover,
-  .ui-page-theme-b .com a:active,
-  .ui-page-theme-b .com a:visited,
-  .ui-page-theme-b .namepsal a:link,
-  .ui-page-theme-b .namepsal a:hover,
-  .ui-page-theme-b .namepsal a:active,
-  .ui-page-theme-b .namepsal a:visited
+  .night .com a:link,
+  .night .com a:hover,
+  .night .com a:active,
+  .night .com a:visited,
+  .night .namepsal a:link,
+  .night .namepsal a:hover,
+  .night .namepsal a:active,
+  .night .namepsal a:visited
   { color: #ff4f4f;}
 
 
@@ -82,7 +83,7 @@ page-page-view {
     font-style: normal;
     /*font-size: 20px;*/
   }
-  .ui-page-theme-b i { color: #ff4f4f;}
+  .night i { color: #ff4f4f;}
 
   p.psal {
     text-indent: 0;
@@ -92,7 +93,7 @@ page-page-view {
     color: #e50000;
     /*font-size: 30px;*/
   }
-  .ui-page-theme-b p.psal b { color: #ff4f4f;}
+  .night p.psal b { color: #ff4f4f;}
 
 
   p.psal i, .com i, .namepsal i {
@@ -116,11 +117,11 @@ page-page-view {
   a.red, a.red:link, a.red:active, a.red:hover, a.red:visited {
     color: #e50000;
   }
-  .ui-page-theme-b a.red,
-  .ui-page-theme-b a.red:link,
-  .ui-page-theme-b a.red:active,
-  .ui-page-theme-b a.red:hover,
-  .ui-page-theme-b a.red:visited  { color: #ff4f4f;}
+  .night a.red,
+  .night a.red:link,
+  .night a.red:active,
+  .night a.red:hover,
+  .night a.red:visited  { color: #ff4f4f;}
 
 
 
@@ -134,7 +135,7 @@ page-page-view {
     border: 1px solid #f2ece1;
     border-width: 1px 0 0 0;
   }
-  .ui-page-theme-b p.snoska  { color: #ff4f4f;}
+  .night p.snoska  { color: #ff4f4f;}
 
 
 
@@ -145,4 +146,17 @@ page-page-view {
     /*line-height: 1px;*/
     border: 0;
   }
+
+  .hyphens {
+    hyphens: auto;
+  }
+
+  .justify {
+    text-align: justify;
+  }
+
+  .noPerenos br {
+    display: none;
+  }
+
 }

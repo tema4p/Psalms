@@ -7,9 +7,12 @@ import { HomePage } from '../pages/home/home';
 import { PageView } from '../pages/page-view/page-view';
 // import { ListPage } from '../pages/list/list';
 import { Contents } from '../content/contents';
+import { SettingsService } from './services/settingsService';
+import { RateService } from './services/rateService';
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [SettingsService, RateService]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -18,7 +21,11 @@ export class MyApp {
 
   pages: Array<{item: any, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform,
+              public statusBar: StatusBar,
+              public splashScreen: SplashScreen,
+              private settingsService: SettingsService,
+              private rateService: RateService) {
     this.initializeApp();
 
     this.pages = [];
