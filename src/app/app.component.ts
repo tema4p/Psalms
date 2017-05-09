@@ -19,7 +19,7 @@ export class MyApp {
 
   rootPage: any = HomePage;
 
-  pages: Array<{item: any, component: any}>;
+  pages: Array<{item: any, component: any, note?: string}>;
 
   constructor(public platform: Platform,
               public statusBar: StatusBar,
@@ -39,7 +39,8 @@ export class MyApp {
     for (let item in kafizma) {
       this.pages.push({
         item: kafizma[item],
-        component: PageView
+        component: PageView,
+        note: this.settingsService.getPsalmsRange(kafizma[item].kafisma)
       })
     }
 

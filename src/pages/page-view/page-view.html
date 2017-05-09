@@ -12,7 +12,7 @@
     </button>
     <ion-title [ngClass]="{'irmologion' : (settings.textSource === 'cs')}">{{title}}</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="bookMark()">
+      <button ion-button icon-only (click)="bookMark()" [ngClass]="{'not-marked': !isMarked()}" >
         <ion-icon name="ios-bookmark"></ion-icon>
       </button>
       <button ion-button icon-only (click)="goSettings()">
@@ -26,7 +26,7 @@
 
 <ion-content padding [ngClass]="settings.theme">
 
-  <div [innerHTML]="content.data"
+  <div [innerHTML]="content"
        [ngClass]="{'irmologion' : (settings.textSource === 'cs'),
                    'noPerenos':(!settings.perenos),
                    'hyphens':(settings.hyphens),

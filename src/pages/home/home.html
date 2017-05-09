@@ -12,24 +12,39 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="outer-content">
   <h5>Псалтирь царя и пророка Давида</h5>
-  <hr>
-  <h5>Последине кафизмы: </h5>
   <ion-list>
-    <button ion-item>Кафизма 3</button>
-    <button ion-item>Кафизма 4</button>
+    <ion-list-header>Последине кафизмы</ion-list-header>
+    <ion-item *ngIf="history.length === 0">
+      У вас еще нет открытых кафизм
+    </ion-item>
   </ion-list>
 
-  <h5>Закладки </h5>
   <ion-list>
-    <button ion-item>Кафизма 7</button>
-    <button ion-item>Кафизма 8</button>
+    <ion-list-header>Закладки</ion-list-header>
+    <ion-item *ngIf="bookmarks.length === 0">
+      У вас пока нет закладок
+    </ion-item>
+    <ng-container *ngFor="let p of bookmarks; trackBy: index" >
+      <ion-item-sliding (*ngIf)="p && p.item.rus">
+        <button ion-item (click)="openPage(p, p.item)">
+          {{p.item.rus}}
+          <ion-note item-right>{{p.note}}</ion-note>
+        </button>
+        <ion-item-options>
+          <button ion-button color="light" icon-left (click)="removeBookmark(p)">
+            <ion-icon name="remove"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ng-container>
   </ion-list>
 
-  <h5>Избранные псалмы </h5>
   <ion-list>
-    <button ion-item>Псалом 26</button>
-    <button ion-item>Псалом 50</button>
+    <ion-list-header>Избранные псалмы</ion-list-header>
+    <ion-item *ngIf="psalms.length === 0">
+      У вас еще нет избарнных псалмов
+    </ion-item>
   </ion-list>
 </ion-content>

@@ -4,6 +4,7 @@ import { SettingsPage } from '../settings/settings';
 import { ToastController } from 'ionic-angular';
 import { SettingsService } from '../../app/services/settingsService';
 declare var $: any;
+declare var _:any;
 
 /**
  * Generated class for the PageView page.
@@ -22,6 +23,7 @@ export class PageView {
   public content: string = '';
   public title: string = '';
   public settings: any = {};
+
   public data: any = {
     psalm: {
       cs: (<any> window).psalmCs,
@@ -42,11 +44,10 @@ export class PageView {
   }
 
   loadContent() {
-    console.log('loadContent');
     if (this.navParams.data.kafisma) {
-      this.content = this.data.psalm[this.settings.textSource][this.navParams.data.kafisma];
+      this.content = this.data.psalm[this.settings.textSource][this.navParams.data.kafisma].data;
     } else if (this.navParams.data.add) {
-      this.content = this.data.adds[this.settings.textSource][this.navParams.data.add];
+      this.content = this.data.adds[this.settings.textSource][this.navParams.data.add].data;
     }
 
     if (this.settings.textSource === 'hh') {
@@ -55,35 +56,27 @@ export class PageView {
       this.title = this.navParams.data.cs;
     }
 
-    setTimeout(() => { this.checkExtends(); }, 1);
+    this.checkExtends();
   }
 
   checkExtends() {
-    console.log('this.settings.textSource', this.settings.textSource);
-    console.log('this.settings', this.settings);
     if (this.settings.textSource !== 'hh') {
       return;
     }
-    let el = $(this.viewElement.nativeElement);
-    (<any> window).el = el;
+    let el = $('<div></div>').html(this.content);
     if (this.settings.adds) {
       el.find('.trisv').html(this.data.adds['hh']['trisv'].data);
       el.find('.slava').html(this.data.adds['hh']['slava'].data).removeClass('red').removeClass('center');
       el.find('.slavaPre').html(this.data.adds['hh']['slavaPre'].data).removeClass('red').removeClass('center');
     }
     if (this.settings.repose) {
-      console.log('this.settings.repose', this.settings.repose);
       el.find('.slava').html(this.data.adds['hh']['repose'].data).removeClass('red').removeClass('center');
       el.find('.trop-normal').html(this.data.adds['hh']['reposeM'].data);
-
-      console.log('this.data', this.data);
-      console.log(el.find('.slava'), this.data.adds['hh']['repose'].data);
-      console.log(el.find('.trop-normal'), this.data.adds['hh']['reposeM'].data);
     }
+    this.content = el.html();
   }
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter');
     let newSettings = this.settingsService.getSettings();
     if (this.content === '' ||
         this.settings.textSource !== newSettings.textSource ||
@@ -101,10 +94,27 @@ export class PageView {
   }
 
   bookMark(): void {
-    let toast = this.toastCtrl.create({
-      message: 'Кафизма добавленна в закладки',
-      duration: 3000
-    });
-    toast.present();
+    if (!this.isMarked()) {
+      this.settings.bookmarks.push(this.navParams.data.kafisma);
+      this.settings.bookmarks = _.sortBy(this.settings.bookmarks);
+      this.settingsService.saveSettings(this.settings);
+      let toast = this.toastCtrl.create({
+        message: `Кафизма ${+this.navParams.data.kafisma} добавленна в закладки`,
+        duration: 3000
+      });
+      toast.present();
+    } else {
+      this.settings.bookmarks = _.without(this.settings.bookmarks, this.navParams.data.kafisma);
+      this.settingsService.saveSettings(this.settings);
+      let toast = this.toastCtrl.create({
+        message: `Кафизма ${+this.navParams.data.kafisma} убрана из закладок.`,
+        duration: 3000
+      });
+      toast.present();
+    }
+  }
+
+  isMarked(): boolean {
+    return this.settings.bookmarks.indexOf(this.navParams.data.kafisma) !== -1;
   }
 }

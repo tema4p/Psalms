@@ -15,6 +15,7 @@
                 (click)="openPage(p, p.item)"
                 *ngIf="p.item.rus">
           {{p.item.rus}}
+          <ion-note item-right>{{p.note}}</ion-note>
         </button>
       </ng-container>
       <button menuClose ion-item (click)="openHome()">
