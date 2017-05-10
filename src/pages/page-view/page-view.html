@@ -12,7 +12,9 @@
     </button>
     <ion-title [ngClass]="{'irmologion' : (settings.textSource === 'cs')}">{{title}}</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="bookMark()" [ngClass]="{'not-marked': !isMarked()}" >
+      <button ion-button icon-only (click)="bookMark()"
+              [ngClass]="{'not-marked': !isMarked()}"
+              *ngIf="navParams.data.kafisma">
         <ion-icon name="ios-bookmark"></ion-icon>
       </button>
       <button ion-button icon-only (click)="goSettings()">
@@ -26,14 +28,20 @@
 
 <ion-content padding [ngClass]="settings.theme">
 
-  <div [innerHTML]="content"
+  <div id="contentContainer"
+       [innerHTML]="content"
+       (swipeleft)="goPage(page + 1)"
+       (swiperight)="goPage(page - 1)"
+
        [ngClass]="{'irmologion' : (settings.textSource === 'cs'),
                    'noPerenos':(!settings.perenos),
-                   'hyphens':(settings.hyphens),
-                   'justify':(settings.justify)}"
+                   'hyphens':  (settings.hyphens),
+                   'justify':  (settings.justify),
+                   'bookMode': (settings.bookMode)}"
 
        [ngStyle]="{'fontFamily': (settings.textSource === 'hh') ? settings.fontFamily : false,
-                   'font-size': settings.fontSize + 'px'}">
+                   'font-size': settings.fontSize + 'px',
+                   'transform': 'translate3d(' + getTranslateX() + ', 0, 0)' }">
 
   </div>
 </ion-content>

@@ -5,14 +5,12 @@ import { ToastController } from 'ionic-angular';
 import { SettingsService } from '../../app/services/settingsService';
 declare var $: any;
 declare var _:any;
-
 /**
  * Generated class for the PageView page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-
 @IonicPage()
 @Component({
   selector: 'page-page-view',
@@ -23,6 +21,8 @@ export class PageView {
   public content: string = '';
   public title: string = '';
   public settings: any = {};
+  public page: number = 0;
+  public pagesTotal: number = 0;
 
   public data: any = {
     psalm: {
@@ -74,6 +74,9 @@ export class PageView {
       el.find('.trop-normal').html(this.data.adds['hh']['reposeM'].data);
     }
     this.content = el.html();
+    setTimeout(() => {
+      this.calculatePagesTotal();
+    })
   }
 
   ionViewWillEnter() {
@@ -116,5 +119,22 @@ export class PageView {
 
   isMarked(): boolean {
     return this.settings.bookmarks.indexOf(this.navParams.data.kafisma) !== -1;
+  }
+
+  public getTranslateX(): string {
+    const vh: number = 100 * this.page;
+    const correct = 20 * this.page;
+    return `calc(-${vh}vw - ${correct}px)`;
+  }
+
+  public goPage(n): void {
+    if (n > -1 && n <= this.pagesTotal -1) {
+      this.page = n;
+    }
+  }
+
+  public calculatePagesTotal(): void {
+    let container: any = $(this.viewElement.nativeElement).find('#contentContainer');
+    this.pagesTotal = Math.round(container[0].scrollWidth / (window.screen.availWidth + 18) );
   }
 }

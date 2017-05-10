@@ -36,6 +36,7 @@ export class SettingsService {
         justify: true,
         repose: false,
         adds: true,
+        bookMode: true,
         bookmarks: [],
         history: [],
         psalms: [],

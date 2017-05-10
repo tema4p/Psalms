@@ -163,4 +163,13 @@ page-page-view {
     opacity: 0.5;
   }
 
+  .bookMode {
+    height: 100%;
+    column-gap: 40px;
+    column-width: calc(100vw - 60px);
+    transform: translate3d(0, 0, 0);
+    transition: transform 500ms;
+    margin: 0 -16px;
+    padding: 10px;
+  }
 }
