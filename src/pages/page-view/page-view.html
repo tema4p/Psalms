@@ -26,7 +26,7 @@
 </ion-header>
 
 
-<ion-content padding [ngClass]="settings.theme">
+<ion-content padding [ngClass]="[settings.theme, displayOrientation]">
 
   <div id="contentContainer"
        [innerHTML]="content"
@@ -43,5 +43,8 @@
                    'font-size': settings.fontSize + 'px',
                    'transform': 'translate3d(' + getTranslateX() + ', 0, 0)' }">
 
+  </div>
+  <div class="pages-info">
+    {{page + 1}} / {{pagesTotal}}
   </div>
 </ion-content>

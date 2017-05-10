@@ -23,6 +23,7 @@ export class PageView {
   public settings: any = {};
   public page: number = 0;
   public pagesTotal: number = 0;
+  public displayOrientation: string = (<any> window).screen.orientation.type;
 
   public data: any = {
     psalm: {
@@ -41,6 +42,16 @@ export class PageView {
               public toastCtrl: ToastController,
               private viewElement: ElementRef) {
     this.settings = this.settingsService.getSettings();
+
+    window.addEventListener("orientationchange", () => { this.onRotateChange()  }, false);
+  }
+
+  onRotateChange() {
+    console.log('view orientationchange');
+    const progress = this.page/this.pagesTotal;
+    this.calculatePagesTotal();
+    this.page = Math.round(this.pagesTotal * progress);
+    this.displayOrientation = (<any> window).screen.orientation.type;
   }
 
   loadContent() {
@@ -131,10 +142,13 @@ export class PageView {
     if (n > -1 && n <= this.pagesTotal -1) {
       this.page = n;
     }
+    console.log('goPage', n, ' / ', this.pagesTotal);
   }
 
   public calculatePagesTotal(): void {
-    let container: any = $(this.viewElement.nativeElement).find('#contentContainer');
-    this.pagesTotal = Math.round(container[0].scrollWidth / (window.screen.availWidth + 18) );
+    const container: any = $(this.viewElement.nativeElement).find('#contentContainer');
+    const correction = this.displayOrientation === 'landscape-primary' ? -8 : 18;
+    this.pagesTotal = Math.round(container[0].scrollWidth / (window.screen.availWidth + correction) );
+    console.log('calculatePagesTotal', this.pagesTotal);
   }
 }

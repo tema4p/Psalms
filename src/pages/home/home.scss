@@ -2,4 +2,12 @@ page-home {
   ion-title {
     font-family: 'Irmologion';
   }
+  h5 {
+    text-align: center;
+  }
+  ion-list-header {
+    .label-md {
+      margin: 26px 8px 0 0;
+    }
+  }
 }

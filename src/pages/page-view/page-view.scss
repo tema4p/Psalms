@@ -172,4 +172,16 @@ page-page-view {
     margin: 0 -16px;
     padding: 10px;
   }
+  .landscape-primary {
+    .bookMode {
+      column-width: calc(50vw - 60px);
+    }
+  }
+
+  .pages-info {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+  }
 }
