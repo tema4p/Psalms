@@ -183,5 +183,28 @@ page-page-view {
     bottom: 0;
     width: 100%;
     text-align: center;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.64);
+    color: $basicColor;
+
+    button {
+      color: #501111;
+    }
+    span {
+      width: 60px;
+      vertical-align: -webkit-baseline-middle;;
+    }
+    transform: translate3d(0, 0, 0);
+    transition: transform 300ms;
+
+    &.hidden {
+      transform: translate3d(0, 55px, 0);
+      transition: transform 300ms;
+    }
+  }
+
+  .disabled {
+    opacity: 0.4;
+    pointer-events: none;
   }
 }

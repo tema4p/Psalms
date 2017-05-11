@@ -1,8 +1,9 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SettingsPage } from '../settings/settings';
 import { ToastController } from 'ionic-angular';
 import { SettingsService } from '../../app/services/settingsService';
+
 declare var $: any;
 declare var _:any;
 /**
@@ -24,6 +25,8 @@ export class PageView {
   public page: number = 0;
   public pagesTotal: number = 0;
   public displayOrientation: string = (<any> window).screen.orientation.type;
+  public enableInfo: boolean = true;
+  public hideInfoTimeOut: any;
 
   public data: any = {
     psalm: {
@@ -36,22 +39,43 @@ export class PageView {
     }
   };
 
+  private rotationHandler: any;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private settingsService: SettingsService,
-              public toastCtrl: ToastController,
-              private viewElement: ElementRef) {
+              private toastCtrl: ToastController,
+              private viewElement: ElementRef,
+              private chRef: ChangeDetectorRef) {
     this.settings = this.settingsService.getSettings();
 
-    window.addEventListener("orientationchange", () => { this.onRotateChange()  }, false);
   }
 
-  onRotateChange() {
-    console.log('view orientationchange');
-    const progress = this.page/this.pagesTotal;
-    this.calculatePagesTotal();
-    this.page = Math.round(this.pagesTotal * progress);
-    this.displayOrientation = (<any> window).screen.orientation.type;
+  ngOnInit() {
+    this.rotationHandler = (() => {
+      console.log('view orientationchange');
+      const progress: number  = this.page / this.pagesTotal;
+      console.log('this.page', this.page);
+      console.log('this.pagesTotal', this.pagesTotal);
+      console.log('progress', progress);
+      this.displayOrientation = (<any> window).screen.orientation.type;
+      setTimeout(() => {
+        this.calculatePagesTotal();
+        this.goPage(Math.round(this.pagesTotal * progress));
+        this.chRef.detectChanges();
+      }, 300);
+    });
+
+    window.addEventListener("orientationchange", this.rotationHandler, false);
+    console.log('ngOnInit');
+  }
+
+  ngOnDestroy() {
+    console.log('ngOnDestroy');
+    window.removeEventListener("orientationchange", this.rotationHandler);
+    if (this.hideInfoTimeOut) {
+      clearTimeout(this.hideInfoTimeOut);
+    }
   }
 
   loadContent() {
@@ -91,6 +115,7 @@ export class PageView {
   }
 
   ionViewWillEnter() {
+    console.log('ionViewWillEnter');
     let newSettings = this.settingsService.getSettings();
     if (this.content === '' ||
         this.settings.textSource !== newSettings.textSource ||
@@ -143,12 +168,27 @@ export class PageView {
       this.page = n;
     }
     console.log('goPage', n, ' / ', this.pagesTotal);
+    this.showInfo();
+  }
+
+  public showInfo(): void {
+    this.enableInfo = true;
+    if (this.hideInfoTimeOut) {
+      clearTimeout(this.hideInfoTimeOut);
+    }
+    this.hideInfoTimeOut = setTimeout(() => {
+      this.enableInfo = false;
+      this.chRef.detectChanges();
+    }, 3000);
   }
 
   public calculatePagesTotal(): void {
     const container: any = $(this.viewElement.nativeElement).find('#contentContainer');
-    const correction = this.displayOrientation === 'landscape-primary' ? -8 : 18;
-    this.pagesTotal = Math.round(container[0].scrollWidth / (window.screen.availWidth + correction) );
+    // const correction = this.displayOrientation === 'landscape-primary' ? -8 : 18;
+    console.log('this.displayOrientation', this.displayOrientation);
+    console.log('this.container[0].scrollWidth', container[0].scrollWidth);
+    console.log('window.screen.availWidth', window.screen.availWidth);
+    this.pagesTotal = Math.round(container[0].scrollWidth / (window.screen.availWidth + 18) );
     console.log('calculatePagesTotal', this.pagesTotal);
   }
 }

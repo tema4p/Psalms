@@ -44,7 +44,20 @@
                    'transform': 'translate3d(' + getTranslateX() + ', 0, 0)' }">
 
   </div>
-  <div class="pages-info">
-    {{page + 1}} / {{pagesTotal}}
+  <div class="pages-info" [ngClass]="{'hidden': (!enableInfo)}">
+    <button ion-button icon-only [clear]="true"
+            [ngClass]="{'disabled': (page === 0)}"
+            (click)="goPage(page - 1)">
+      <ion-icon name="arrow-dropleft"></ion-icon>
+    </button>
+    <span>
+      {{page + 1}} / {{pagesTotal}}
+    </span>
+
+    <button ion-button icon-only [clear]="true"
+            [ngClass]="{'disabled': (page + 1 === pagesTotal)}"
+            (click)="goPage(page + 1)">
+      <ion-icon name="arrow-dropright"></ion-icon>
+    </button>
   </div>
 </ion-content>
