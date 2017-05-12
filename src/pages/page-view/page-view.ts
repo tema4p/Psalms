@@ -27,6 +27,7 @@ export class PageView {
   public displayOrientation: string = (<any> window).screen.orientation.type;
   public enableInfo: boolean = true;
   public hideInfoTimeOut: any;
+  public container: any;
 
   public data: any = {
     psalm: {
@@ -52,12 +53,15 @@ export class PageView {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.container = $(this.viewElement.nativeElement).find('#contentContainer')[0];
+    });
     this.rotationHandler = (() => {
-      console.log('view orientationchange');
+      //console.log('view orientationchange');
       const progress: number  = this.page / this.pagesTotal;
-      console.log('this.page', this.page);
-      console.log('this.pagesTotal', this.pagesTotal);
-      console.log('progress', progress);
+      //console.log('this.page', this.page);
+      //console.log('this.pagesTotal', this.pagesTotal);
+      //console.log('progress', progress);
       this.displayOrientation = (<any> window).screen.orientation.type;
       setTimeout(() => {
         this.calculatePagesTotal();
@@ -67,11 +71,11 @@ export class PageView {
     });
 
     window.addEventListener("orientationchange", this.rotationHandler, false);
-    console.log('ngOnInit');
+    //console.log('ngOnInit');
   }
 
   ngOnDestroy() {
-    console.log('ngOnDestroy');
+    //console.log('ngOnDestroy');
     window.removeEventListener("orientationchange", this.rotationHandler);
     if (this.hideInfoTimeOut) {
       clearTimeout(this.hideInfoTimeOut);
@@ -115,7 +119,7 @@ export class PageView {
   }
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter');
+    //console.log('ionViewWillEnter');
     let newSettings = this.settingsService.getSettings();
     if (this.content === '' ||
         this.settings.textSource !== newSettings.textSource ||
@@ -132,7 +136,7 @@ export class PageView {
     this.navCtrl.push(SettingsPage);
   }
 
-  bookMark(): void {
+  setBookMark(): void {
     if (!this.isMarked()) {
       this.settings.bookmarks.push(this.navParams.data.kafisma);
       this.settings.bookmarks = _.sortBy(this.settings.bookmarks);
@@ -167,7 +171,8 @@ export class PageView {
     if (n > -1 && n <= this.pagesTotal -1) {
       this.page = n;
     }
-    console.log('goPage', n, ' / ', this.pagesTotal);
+    //console.log('goPage', n, ' / ', this.pagesTotal);
+    this.calculatePagesTotal();
     this.showInfo();
   }
 
@@ -182,13 +187,13 @@ export class PageView {
     }, 3000);
   }
 
-  public calculatePagesTotal(): void {
-    const container: any = $(this.viewElement.nativeElement).find('#contentContainer');
-    // const correction = this.displayOrientation === 'landscape-primary' ? -8 : 18;
-    console.log('this.displayOrientation', this.displayOrientation);
-    console.log('this.container[0].scrollWidth', container[0].scrollWidth);
-    console.log('window.screen.availWidth', window.screen.availWidth);
-    this.pagesTotal = Math.round(container[0].scrollWidth / (window.screen.availWidth + 18) );
-    console.log('calculatePagesTotal', this.pagesTotal);
+  public calculatePagesTotal(): number {
+    if (!this.container) return 1;
+    // console.log('this.displayOrientation', this.displayOrientation);
+    // console.log('this.container[0].scrollWidth', this.container.scrollWidth);
+    // console.log('window.screen.availWidth', window.screen.availWidth);
+    this.pagesTotal = Math.round(this.container.scrollWidth / (window.screen.availWidth + 18) );
+    // console.log('calculatePagesTotal', this.pagesTotal);
+    return this.pagesTotal;
   }
 }

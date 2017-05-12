@@ -207,4 +207,76 @@ page-page-view {
     opacity: 0.4;
     pointer-events: none;
   }
+
+
+  .notice {
+    text-align: center;
+    font-style: italic;
+    color: #e50000;
+  }
+  .night .notice { color: #ff4f4f;}
+
+  .ui-btn:hover {
+    background-color: #F6F6F6  !important;
+  }
+
+  .ui-btn:active {
+    background-color: #fff7ea !important;
+  }
+
+  .night .ui-btn:hover {
+    background-color: #393939 !important;
+  }
+  .night .ui-btn:active, {
+    background-color: #444444 !important;
+  }
+
+  .ui-listview > li p {
+    white-space: normal;
+    line-height: normal;
+    font-size: 100%;
+    margin: 3px;
+  }
+
+  .ui-li-static.ui-body-inherit {
+    padding: 3px;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  h3 {
+    text-align: center;
+    font-style: italic;
+  }
+
+  .psalm-n {
+    text-align: center;
+    font-style: italic;
+  }
+
+  .emphasis {
+    font-style: italic;
+    font-weight: normal;
+  }
+
+  .b {
+    font-weight: bold;
+  }
+
+  .i {
+    font-style: italic;
+    color: #e50000;
+  }
+
+  .night .i { color: #ff4f4f;}
+
+  .info-ps {
+    img {
+      width: 50%;
+      float: left;
+      margin-right: 5px;
+    }
+  }
 }

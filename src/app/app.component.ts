@@ -5,7 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { PageView } from '../pages/page-view/page-view';
-// import { ListPage } from '../pages/list/list';
+import { SlovarPage } from '../pages/slovar/slovar';
+
 import { Contents } from '../content/contents';
 import { SettingsService } from './services/settingsService';
 import { RateService } from './services/rateService';
@@ -67,5 +68,9 @@ export class MyApp {
 
   openHome(): void {
     this.nav.setRoot(HomePage);
+  }
+
+  openSlovar(): void {
+    this.nav.setRoot(SlovarPage);
   }
 }

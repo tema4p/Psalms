@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Словарь</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list class="words-list" >
+    <div class="word" *ngFor="let item of words">
+      <span class="title">{{item.word}}: </span>
+      <span class="desc">{{item.desc}}</span>
+    </div>
+  </ion-list>
+
+  <button color="light" ion-button full (click)="showMore()" *ngIf="words.length >= limit">
+    Отобразить еще
+  </button>
+
+</ion-content>
