@@ -1,4 +1,4 @@
-window.psalmRus = {
+window.psalmRu = {
     '01': { data: ` 
     <h3>Кафи&#769;сма пе&#769;рвая   </h3>
     <p class="namepsal">Псалом 1</p>

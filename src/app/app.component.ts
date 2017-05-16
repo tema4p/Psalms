@@ -25,7 +25,7 @@ export class MyApp {
   constructor(public platform: Platform,
               public statusBar: StatusBar,
               public splashScreen: SplashScreen,
-              private settingsService: SettingsService,
+              public settingsService: SettingsService,
               private rateService: RateService) {
     this.initializeApp();
 

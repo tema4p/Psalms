@@ -13,8 +13,10 @@
       <ng-container *ngFor="let p of pages">
         <button menuClose ion-item
                 (click)="openPage(p, p.item)"
-                *ngIf="p.item.rus">
-          {{p.item.rus}}
+                *ngIf="p.item[settingsService.settings.textSource]">
+          <span [ngClass]="{'irmologion' : (settingsService.settings.textSource === 'cs')}">
+            {{p.item[settingsService.settings.textSource]}}
+          </span>
           <ion-note item-right>{{p.note}}</ion-note>
         </button>
       </ng-container>

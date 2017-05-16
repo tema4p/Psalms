@@ -32,11 +32,11 @@ export class PageView {
   public data: any = {
     psalm: {
       cs: (<any> window).psalmCs,
-      hh: (<any> window).psalmRus,
+      ru: (<any> window).psalmRu,
     },
     adds: {
       cs: (<any> window).addsCs,
-      hh: (<any> window).addsRus,
+      ru: (<any> window).addsRu,
     }
   };
 
@@ -84,13 +84,15 @@ export class PageView {
 
   loadContent() {
     if (this.navParams.data.kafisma) {
+      console.log('this.data.psalm', this.data.psalm);
+      console.log('this.settings.textSource', this.settings.textSource  );
       this.content = this.data.psalm[this.settings.textSource][this.navParams.data.kafisma].data;
     } else if (this.navParams.data.add) {
       this.content = this.data.adds[this.settings.textSource][this.navParams.data.add].data;
     }
 
-    if (this.settings.textSource === 'hh') {
-      this.title = this.navParams.data.rus;
+    if (this.settings.textSource === 'ru') {
+      this.title = this.navParams.data.ru;
     } else {
       this.title = this.navParams.data.cs;
     }
@@ -99,18 +101,18 @@ export class PageView {
   }
 
   checkExtends() {
-    if (this.settings.textSource !== 'hh') {
+    if (this.settings.textSource !== 'ru') {
       return;
     }
     let el = $('<div></div>').html(this.content);
     if (this.settings.adds) {
-      el.find('.trisv').html(this.data.adds['hh']['trisv'].data);
-      el.find('.slava').html(this.data.adds['hh']['slava'].data).removeClass('red').removeClass('center');
-      el.find('.slavaPre').html(this.data.adds['hh']['slavaPre'].data).removeClass('red').removeClass('center');
+      el.find('.trisv').html(this.data.adds['ru']['trisv'].data);
+      el.find('.slava').html(this.data.adds['ru']['slava'].data).removeClass('red').removeClass('center');
+      el.find('.slavaPre').html(this.data.adds['ru']['slavaPre'].data).removeClass('red').removeClass('center');
     }
     if (this.settings.repose) {
-      el.find('.slava').html(this.data.adds['hh']['repose'].data).removeClass('red').removeClass('center');
-      el.find('.trop-normal').html(this.data.adds['hh']['reposeM'].data);
+      el.find('.slava').html(this.data.adds['ru']['repose'].data).removeClass('red').removeClass('center');
+      el.find('.trop-normal').html(this.data.adds['ru']['reposeM'].data);
     }
     this.content = el.html();
     setTimeout(() => {

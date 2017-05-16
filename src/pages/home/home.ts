@@ -21,7 +21,7 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
               public toastCtrl: ToastController,
-              private settingsService: SettingsService) {
+              public settingsService: SettingsService) {
     this.loadBookmarks();
   }
 
