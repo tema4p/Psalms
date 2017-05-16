@@ -40,6 +40,7 @@ export class SettingsService {
         bookmarks: [],
         history: [],
         psalms: [],
+        favorites: []
     };
 
     constructor() {

@@ -29,7 +29,7 @@
 <ion-content padding [ngClass]="[settings.theme, displayOrientation]">
 
   <div id="contentContainer"
-       [innerHTML]="content"
+       [innerHTML]="content | safeHtml"
        (swipeleft)="goPage(page + 1)"
        (swiperight)="goPage(page - 1)"
 

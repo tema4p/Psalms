@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SettingsPage } from '../settings/settings';
 import { ToastController } from 'ionic-angular';
 import { SettingsService } from '../../app/services/settingsService';
+import { PopoverController } from 'ionic-angular';
+import { PsalmPopover } from '../../app/components/psalmPopOver';
 
 declare var $: any;
 declare var _:any;
@@ -47,7 +49,8 @@ export class PageView {
               private settingsService: SettingsService,
               private toastCtrl: ToastController,
               private viewElement: ElementRef,
-              private chRef: ChangeDetectorRef) {
+              private chRef: ChangeDetectorRef,
+              public popoverCtrl: PopoverController) {
     this.settings = this.settingsService.getSettings();
 
   }
@@ -72,6 +75,20 @@ export class PageView {
 
     window.addEventListener("orientationchange", this.rotationHandler, false);
     //console.log('ngOnInit');
+  }
+
+  ngAfterViewInit() {
+    console.log($(this.viewElement.nativeElement));
+    $(this.viewElement.nativeElement).on('click touch', '[psalm]', (e: any) => {
+      let popover = this.popoverCtrl.create(PsalmPopover, {
+        event: e,
+        toastCtrl: this.toastCtrl,
+        settingsService: this.settingsService,
+      });
+      popover.present({
+        ev: e
+      });
+    });
   }
 
   ngOnDestroy() {
