@@ -23,6 +23,7 @@ export class HomePage {
               public toastCtrl: ToastController,
               public settingsService: SettingsService) {
     this.loadBookmarks();
+    this.loadPsalms();
   }
 
   loadBookmarks(): void {
@@ -37,6 +38,23 @@ export class HomePage {
       });
     });
     console.log('loadBookmarks', this.bookmarks);
+  }
+
+  loadPsalms(): void {
+    this.psalms = [];
+    this.settings = this.settingsService.getSettings();
+    _.each(this.settings.psalms, (item) => {
+      this.psalms.push({
+        item: {
+          'psalm': item,
+          'ru': 'Псалом ' + (+item),
+          'cs': 'Псалом ' + (+item)
+        },
+        component: PageView,
+        note: ''
+      });
+    });
+    console.log('loadPsalms', this.psalms);
   }
 
   openPage(page: any, params: any): void {
@@ -54,6 +72,18 @@ export class HomePage {
     });
     toast.present();
     this.loadBookmarks();
+  }
+
+  removePsalm(page): void {
+    console.log('page', page);
+    this.settings.psalms = _.without(this.settings.psalms, page.item.psalm);
+    this.settingsService.saveSettings(this.settings);
+    let toast = this.toastCtrl.create({
+      message: `Псалом ${+page.item.psalm} убран из избранного.`,
+      duration: 3000
+    });
+    toast.present();
+    this.loadPsalms();
   }
 
   goSettings(): void {
