@@ -85,18 +85,19 @@ page-page-view {
   }
   .night i { color: #ff4f4f;}
 
-  p.psal {
+
+  .psal, .psal-17 {
     text-indent: 0;
   }
 
-  p.psal b {
+  .psal b, .psal-17 b {
     color: #e50000;
     /*font-size: 30px;*/
   }
-  .night p.psal b { color: #ff4f4f;}
+  .night .psal b, .night .psal-17 b  { color: #ff4f4f;}
 
 
-  p.psal i, .com i, .namepsal i {
+  .psal i, .psal-17 i, .namepsal i, .com i, .namepsal ~ p i {
     font-size: 60%;
     margin-right: 2px;
     vertical-align: super;

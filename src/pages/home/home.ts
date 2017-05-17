@@ -53,6 +53,7 @@ export class HomePage {
         component: PageView,
         note: ''
       });
+      this.psalms = _.sortBy(this.psalms, (item) => +item.item.psalm);
     });
     console.log('loadPsalms', this.psalms);
   }

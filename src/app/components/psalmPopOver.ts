@@ -33,8 +33,7 @@ export class PsalmPopover {
     } else {
       this.psalmId = target.innerHTML.match(/\d+/g)[0];
     }
-    if (parseInt(this.psalmId) < 10) this.psalmId = '0' + this.psalmId;
-    this.title = target.innerHTML;
+    this.title = 'Псалом ' + this.psalmId;
     console.log('this.psalmId', this.psalmId);
   }
 

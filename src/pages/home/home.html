@@ -51,9 +51,7 @@
     <ng-container *ngFor="let p of psalms; trackBy: index" >
       <ion-item-sliding (*ngIf)="p && p.item.ru">
         <button ion-item (click)="openPage(p, p.item)">
-          <span [ngClass]="{'irmologion' : (settingsService.settings.textSource === 'cs')}">
-            {{p.item[settingsService.settings.textSource]}}
-          </span>
+          {{p.item[settingsService.settings.textSource]}}
         </button>
         <ion-item-options>
           <button ion-button color="light" icon-left (click)="removePsalm(p)">

@@ -30,6 +30,10 @@ export class PageView {
   public enableInfo: boolean = true;
   public hideInfoTimeOut: any;
   public container: any;
+  public psalmsTreeRu: any;
+  public psalmsTreeCs: any;
+
+  public forceTitleRu: boolean = false;
 
   public data: any = {
     psalm: {
@@ -106,6 +110,8 @@ export class PageView {
       this.content = this.data.psalm[this.settings.textSource][this.navParams.data.kafisma].data;
     } else if (this.navParams.data.add) {
       this.content = this.data.adds[this.settings.textSource][this.navParams.data.add].data;
+    } else if (this.navParams.data.psalm) {
+      this.content = this.getPsalm(this.navParams.data.psalm);
     }
 
     if (this.settings.textSource === 'ru') {
@@ -214,5 +220,49 @@ export class PageView {
     this.pagesTotal = Math.round(this.container.scrollWidth / (window.screen.availWidth + 18) );
     // console.log('calculatePagesTotal', this.pagesTotal);
     return this.pagesTotal;
+  }
+
+  public getPsalm(id: string): string {
+    if (this.settings.textSource === 'ru') {
+      if (!this.psalmsTreeRu) {
+        let cont: string = '';
+        for (let i = 1; i < 21; i++ ) {
+          let key = i < 10 ? '0' + i : '' + i;
+          cont += this.data.psalm.ru[key].data;
+        }
+        this.psalmsTreeRu = $('<div></div>').html(cont);
+      }
+
+      let $name = this.psalmsTreeRu.find('.namepsal:eq(' + (+id - 1) + ')');
+      let $title = $name.next();
+      let $psalm = this.psalmsTreeRu.find('.psal:eq(' + (+id - 1) + ')');
+
+      return `
+        <p class="namepsal">${$title.html()}</p>
+        <p></p>
+        <p class="psal">${$psalm.html()}</p>
+      `;
+
+    } if (this.settings.textSource === 'cs') {
+      this.forceTitleRu = true;
+
+      if (!this.psalmsTreeCs) {
+        let cont: string = '';
+        for (let i = 1; i < 21; i++ ) {
+          let key = i < 10 ? '0' + i : '' + i;
+          cont += this.data.psalm.cs[key].data;
+        }
+        this.psalmsTreeCs = $('<div></div>').html(cont);
+      }
+
+      let $title = this.psalmsTreeCs.find('#psalom' + id);
+      let $psalm = $title.next();
+      return `
+        <p class="namepsal">${$title.html()}</p>
+        <p></p>
+        <p class="psal">${$psalm.html()}</p>
+      `;
+    }
+
   }
 }
