@@ -198,7 +198,7 @@ export class PageView {
 
   public goPage(n): void {
     if (!this.settings.bookMode) {
-      this.page = 1;
+      this.page = 0;
       return;
     }
 
