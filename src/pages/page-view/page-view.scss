@@ -1,6 +1,13 @@
 page-page-view {
   hyphens: auto;
 
+  .scroll-content {
+    margin: 44px 0 0 !important;
+    padding: 0 !important;
+  }
+
+
+
   .namepsal + p {
     color: #E50000;
     text-align: center;
@@ -166,16 +173,22 @@ page-page-view {
 
   .bookMode {
     height: 100%;
-    column-gap: 40px;
-    column-width: calc(100vw - 60px);
+    column-gap: 20px;
+    column-width: calc(100vw - 100px);
     transform: translate3d(0, 0, 0);
     transition: transform 500ms;
-    margin: 0 -16px;
+    margin: 0;
+    will-change: transform;
+  }
+
+  #contentContainer {
     padding: 10px;
   }
+
+
   .landscape-primary {
     .bookMode {
-      column-width: calc(50vw - 60px);
+      column-width: calc(50vw - 50px);
     }
   }
 
@@ -279,5 +292,14 @@ page-page-view {
       float: left;
       margin-right: 5px;
     }
+  }
+
+  .pull-right {
+    float: right;
+  }
+
+  .sreda {
+    width: 100%;
+    float: right;
   }
 }

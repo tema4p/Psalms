@@ -144,7 +144,7 @@ export class PageView {
   }
 
   ionViewWillEnter() {
-    //console.log('ionViewWillEnter');
+    console.log('ionViewWillEnter');
     let newSettings = this.settingsService.getSettings();
     if (this.content === '' ||
         this.settings.textSource !== newSettings.textSource ||
@@ -154,6 +154,11 @@ export class PageView {
       this.loadContent();
     } else {
       this.settings = newSettings;
+    }
+
+    if (!this.settings.bookMode) {
+      this.page = 0;
+      return;
     }
   }
 
@@ -187,12 +192,16 @@ export class PageView {
   }
 
   public getTranslateX(): string {
-    const vh: number = 100 * this.page;
-    const correct = 20 * this.page;
-    return `calc(-${vh}vw - ${correct}px)`;
+    const vw: number = 100 * this.page;
+    return `-${vw}vw`;
   }
 
   public goPage(n): void {
+    if (!this.settings.bookMode) {
+      this.page = 1;
+      return;
+    }
+
     if (n > -1 && n <= this.pagesTotal -1) {
       this.page = n;
     }
@@ -214,11 +223,8 @@ export class PageView {
 
   public calculatePagesTotal(): number {
     if (!this.container) return 1;
-    // console.log('this.displayOrientation', this.displayOrientation);
-    // console.log('this.container[0].scrollWidth', this.container.scrollWidth);
-    // console.log('window.screen.availWidth', window.screen.availWidth);
-    this.pagesTotal = Math.round(this.container.scrollWidth / (window.screen.availWidth + 18) );
-    // console.log('calculatePagesTotal', this.pagesTotal);
+    let pages = this.container.scrollWidth / window.screen.availWidth;
+    this.pagesTotal = Math.ceil(pages);
     return this.pagesTotal;
   }
 
@@ -236,6 +242,13 @@ export class PageView {
       let $name = this.psalmsTreeRu.find('.namepsal:eq(' + (+id - 1) + ')');
       let $title = $name.next();
       let $psalm = this.psalmsTreeRu.find('.psal:eq(' + (+id - 1) + ')');
+
+      if (id === '118') {
+        $psalm.append(this.psalmsTreeRu.find('.psal-118:eq(0)').html());
+        $psalm.append('<br/><span class="red center sreda">&nbsp; [Среда&#769;:] &nbsp;</span><br/>');
+        $psalm.append(this.psalmsTreeRu.find('.psal-118:eq(1)').html());
+        $psalm.append(this.psalmsTreeRu.find('.psal-118:eq(2)').html());
+      }
 
       return `
         <p class="namepsal">${$title.html()}</p>
@@ -257,6 +270,14 @@ export class PageView {
 
       let $title = this.psalmsTreeCs.find('#psalom' + id);
       let $psalm = $title.next();
+
+      if (id === '118') {
+        $psalm.append(this.psalmsTreeCs.find('.psal-118:eq(0)').html());
+        $psalm.append('<br/><span class="red center sreda">Среда&#769;:</span>');
+        $psalm.append(this.psalmsTreeCs.find('.psal-118:eq(1)').html());
+        $psalm.append(this.psalmsTreeCs.find('.psal-118:eq(2)').html());
+      }
+
       return `
         <p class="namepsal">${$title.html()}</p>
         <p></p>
