@@ -29,7 +29,6 @@
 <ion-content padding [ngClass]="[settings.theme, displayOrientation]">
 
   <div id="contentContainer"
-       [innerHTML]="content | safeHtml"
        (swipeleft)="goPage(page + 1)"
        (swiperight)="goPage(page - 1)"
 
@@ -43,7 +42,29 @@
                    'font-size': settings.fontSize + 'px',
                    'transform': 'translate3d(' + getTranslateX() + ', 0, 0)' }">
 
+    <div [innerHTML]="content | safeHtml"></div>
+    <button ion-button *ngIf="+kafisma > 1" (click)="goKafisma(kafisma - 1)">
+      <ion-icon name="arrow-dropleft"></ion-icon>
+      &nbsp;&nbsp;
+      Кафизма {{+kafisma - 1}}
+    </button>
+
+    <button ion-button *ngIf="+kafisma < 20" (click)="goKafisma(kafisma + 1)">
+      Кафизма {{1 + (+kafisma -0)}}
+      &nbsp;&nbsp;
+      <ion-icon name="arrow-dropright"></ion-icon>
+    </button>
+
+    <button ion-button (click)="goHome()">
+      <ion-icon name="ios-home-outline"></ion-icon>
+      &nbsp;&nbsp;
+      На Главную
+    </button>
+
   </div>
+
+
+
   <div class="pages-info" [ngClass]="{'hidden': (!enableInfo)}" *ngIf="settings.bookMode">
     <button ion-button icon-only [clear]="true"
             [ngClass]="{'disabled': (page === 0)}"

@@ -19,6 +19,15 @@
     <ion-item *ngIf="history.length === 0">
       У вас еще нет открытых кафизм
     </ion-item>
+    <ng-container *ngFor="let p of history.slice(-7); trackBy: index" >
+      <button (*ngIf)="p && p.item.ru" ion-item
+              (click)="openPage(p, p.item)">
+        <span [ngClass]="{'irmologion' : (settingsService.settings.textSource === 'cs')}">
+          {{p.item[settingsService.settings.textSource]}}
+        </span>
+        <ion-note item-right>{{p.note}}</ion-note>
+      </button>
+    </ng-container>
   </ion-list>
 
   <ion-list>

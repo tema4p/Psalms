@@ -5,9 +5,11 @@ import { ToastController } from 'ionic-angular';
 import { SettingsService } from '../../app/services/settingsService';
 import { PopoverController } from 'ionic-angular';
 import { PsalmPopover } from '../../app/components/psalmPopOver';
+import { HomePage } from '../home/home';
 
 declare var $: any;
 declare var _:any;
+declare var moment:any;
 /**
  * Generated class for the PageView page.
  *
@@ -32,8 +34,11 @@ export class PageView {
   public container: any;
   public psalmsTreeRu: any;
   public psalmsTreeCs: any;
+  public kafisma: string;
 
   public forceTitleRu: boolean = false;
+
+  public setHistoryTimeOut: any;
 
   public data: any = {
     psalm: {
@@ -79,6 +84,11 @@ export class PageView {
 
     window.addEventListener("orientationchange", this.rotationHandler, false);
     //console.log('ngOnInit');
+    this.kafisma = this.navParams.data.kafisma;
+
+    this.setHistoryTimeOut = setTimeout(() => {
+      this.addHistory();
+    }, 10000);
   }
 
   ngAfterViewInit() {
@@ -96,11 +106,10 @@ export class PageView {
   }
 
   ngOnDestroy() {
-    //console.log('ngOnDestroy');
+    console.log('ngOnDestroy');
     window.removeEventListener("orientationchange", this.rotationHandler);
-    if (this.hideInfoTimeOut) {
-      clearTimeout(this.hideInfoTimeOut);
-    }
+    if (this.hideInfoTimeOut) clearTimeout(this.hideInfoTimeOut);
+    if (this.setHistoryTimeOut) clearTimeout(this.setHistoryTimeOut);
   }
 
   loadContent() {
@@ -187,6 +196,21 @@ export class PageView {
     }
   }
 
+  addHistory(): void {
+    let last = this.settings.history[this.settings.history.length - 1];
+    if (!last || (this.navParams.data.kafisma && last.kafisma !== this.navParams.data.kafisma)) {
+      this.settings.history.push({
+        kafisma: this.navParams.data.kafisma,
+        date: moment().toISOString()
+      });
+      if (this.settings.history.length > 20) {
+        this.settings.history = this.settings.history.slice(-20, 0);
+      }
+      console.log('this.settings.history', this.settings.history);
+      this.settingsService.saveSettings(this.settings);
+    }
+  }
+
   isMarked(): boolean {
     return this.settings.bookmarks.indexOf(this.navParams.data.kafisma) !== -1;
   }
@@ -226,6 +250,10 @@ export class PageView {
     let pages = this.container.scrollWidth / window.screen.availWidth;
     this.pagesTotal = Math.ceil(pages);
     return this.pagesTotal;
+  }
+
+  public goKafisma(id): void {
+    this.navParams.navCtrl.setRoot(PageView)
   }
 
   public getPsalm(id: string): string {

@@ -7,6 +7,7 @@ import { SettingsService } from '../../app/services/settingsService';
 import { ToastController } from 'ionic-angular';
 
 declare var _:any;
+declare var moment:any;
 
 @IonicPage()
 @Component({
@@ -24,6 +25,7 @@ export class HomePage {
               public settingsService: SettingsService) {
     this.loadBookmarks();
     this.loadPsalms();
+    this.loadHistory();
   }
 
   loadBookmarks(): void {
@@ -38,6 +40,20 @@ export class HomePage {
       });
     });
     console.log('loadBookmarks', this.bookmarks);
+  }
+
+  loadHistory(): void {
+    let kafizma = Contents.getKafizmaList();
+    this.history = [];
+    this.settings = this.settingsService.getSettings();
+    _.each(this.settings.history, (item) => {
+      this.history.push({
+        item: kafizma['kafisma' + item.kafisma],
+        component: PageView,
+        note: moment(item.date).format('HH:mm DD.MM.YY  ')
+      });
+    });
+    console.log('loadHistory', this.history);
   }
 
   loadPsalms(): void {
@@ -61,6 +77,7 @@ export class HomePage {
   openPage(page: any, params: any): void {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
+    params.navCtrl = this.navCtrl;
     this.navCtrl.setRoot(page.component, params);
   }
 
