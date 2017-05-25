@@ -6,6 +6,7 @@ import { SettingsService } from '../../app/services/settingsService';
 import { PopoverController } from 'ionic-angular';
 import { PsalmPopover } from '../../app/components/psalmPopOver';
 import { HomePage } from '../home/home';
+import { Contents } from '../../content/contents';
 
 declare var $: any;
 declare var _:any;
@@ -64,34 +65,55 @@ export class PageView {
 
   }
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.container = $(this.viewElement.nativeElement).find('#contentContainer')[0];
-    });
-    this.rotationHandler = (() => {
-      //console.log('view orientationchange');
-      const progress: number  = this.page / this.pagesTotal;
-      //console.log('this.page', this.page);
-      //console.log('this.pagesTotal', this.pagesTotal);
-      //console.log('progress', progress);
-      this.displayOrientation = (<any> window).screen.orientation.type;
-      setTimeout(() => {
-        this.calculatePagesTotal();
-        this.goPage(Math.round(this.pagesTotal * progress));
-        this.chRef.detectChanges();
-      }, 300);
-    });
-
-    window.addEventListener("orientationchange", this.rotationHandler, false);
-    //console.log('ngOnInit');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter');
+    this.initContent();
     this.kafisma = this.navParams.data.kafisma;
-
     this.setHistoryTimeOut = setTimeout(() => {
       this.addHistory();
     }, 10000);
   }
 
+  initContent() {
+    let newSettings = this.settingsService.getSettings();
+    if (this.content === '' ||
+      this.settings.textSource !== newSettings.textSource ||
+      this.settings.adds !== newSettings.adds ||
+      this.settings.repose !== newSettings.repose) {
+      this.settings = newSettings;
+      this.loadContent();
+    } else {
+      this.settings = newSettings;
+    }
+
+    if (!this.settings.bookMode) {
+      this.page = 0;
+      return;
+    }
+  }
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.container = $(this.viewElement.nativeElement).find('#contentContainer')[0];
+    });
+
+    this.initRotationHandler();
+    //console.log('ngOnInit');
+    this.goKafisma(this.navParams.data.kafisma);
+  }
+
   ngAfterViewInit() {
+    this.initPopOver();
+  }
+
+  ngOnDestroy() {
+    console.log('ngOnDestroy');
+    window.removeEventListener("orientationchange", this.rotationHandler);
+    if (this.hideInfoTimeOut) clearTimeout(this.hideInfoTimeOut);
+    if (this.setHistoryTimeOut) clearTimeout(this.setHistoryTimeOut);
+  }
+
+  initPopOver() {
     console.log($(this.viewElement.nativeElement));
     $(this.viewElement.nativeElement).on('click touch', '[psalm]', (e: any) => {
       let popover = this.popoverCtrl.create(PsalmPopover, {
@@ -105,30 +127,35 @@ export class PageView {
     });
   }
 
-  ngOnDestroy() {
-    console.log('ngOnDestroy');
-    window.removeEventListener("orientationchange", this.rotationHandler);
-    if (this.hideInfoTimeOut) clearTimeout(this.hideInfoTimeOut);
-    if (this.setHistoryTimeOut) clearTimeout(this.setHistoryTimeOut);
+  initRotationHandler() {
+    this.rotationHandler = (() => {
+      //console.log('view orientationchange');
+      const progress: number  = this.page / this.pagesTotal;
+      //console.log('this.page', this.page);
+      //console.log('this.pagesTotal', this.pagesTotal);
+      //console.log('progress', progress);
+      this.displayOrientation = (<any> window).screen.orientation.type;
+      setTimeout(() => {
+        this.calculatePagesTotal();
+        this.goPage(Math.round(this.pagesTotal * progress));
+        this.chRef.detectChanges();
+      }, 300);
+    });
+    window.addEventListener("orientationchange", this.rotationHandler, false);
   }
 
   loadContent() {
-    if (this.navParams.data.kafisma) {
+    if (this.kafisma) {
       console.log('this.data.psalm', this.data.psalm);
       console.log('this.settings.textSource', this.settings.textSource  );
-      this.content = this.data.psalm[this.settings.textSource][this.navParams.data.kafisma].data;
+      this.content = this.data.psalm[this.settings.textSource][this.kafisma].data;
     } else if (this.navParams.data.add) {
       this.content = this.data.adds[this.settings.textSource][this.navParams.data.add].data;
     } else if (this.navParams.data.psalm) {
       this.content = this.getPsalm(this.navParams.data.psalm);
     }
 
-    if (this.settings.textSource === 'ru') {
-      this.title = this.navParams.data.ru;
-    } else {
-      this.title = this.navParams.data.cs;
-    }
-
+    this.updateTitle();
     this.checkExtends();
   }
 
@@ -152,44 +179,25 @@ export class PageView {
     })
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter');
-    let newSettings = this.settingsService.getSettings();
-    if (this.content === '' ||
-        this.settings.textSource !== newSettings.textSource ||
-        this.settings.adds !== newSettings.adds ||
-        this.settings.repose !== newSettings.repose) {
-      this.settings = newSettings;
-      this.loadContent();
-    } else {
-      this.settings = newSettings;
-    }
-
-    if (!this.settings.bookMode) {
-      this.page = 0;
-      return;
-    }
-  }
-
   goSettings(): void {
     this.navCtrl.push(SettingsPage);
   }
 
   setBookMark(): void {
     if (!this.isMarked()) {
-      this.settings.bookmarks.push(this.navParams.data.kafisma);
+      this.settings.bookmarks.push(this.kafisma);
       this.settings.bookmarks = _.sortBy(this.settings.bookmarks);
       this.settingsService.saveSettings(this.settings);
       let toast = this.toastCtrl.create({
-        message: `Кафизма ${+this.navParams.data.kafisma} добавленна в закладки`,
+        message: `Кафизма ${+this.kafisma} добавленна в закладки`,
         duration: 3000
       });
       toast.present();
     } else {
-      this.settings.bookmarks = _.without(this.settings.bookmarks, this.navParams.data.kafisma);
+      this.settings.bookmarks = _.without(this.settings.bookmarks, this.kafisma);
       this.settingsService.saveSettings(this.settings);
       let toast = this.toastCtrl.create({
-        message: `Кафизма ${+this.navParams.data.kafisma} убрана из закладок.`,
+        message: `Кафизма ${+this.kafisma} убрана из закладок.`,
         duration: 3000
       });
       toast.present();
@@ -198,9 +206,9 @@ export class PageView {
 
   addHistory(): void {
     let last = this.settings.history[this.settings.history.length - 1];
-    if (!last || (this.navParams.data.kafisma && last.kafisma !== this.navParams.data.kafisma)) {
+    if (!last || (this.kafisma && last.kafisma !== this.kafisma)) {
       this.settings.history.push({
-        kafisma: this.navParams.data.kafisma,
+        kafisma: this.kafisma,
         date: moment().toISOString()
       });
       if (this.settings.history.length > 20) {
@@ -212,7 +220,7 @@ export class PageView {
   }
 
   isMarked(): boolean {
-    return this.settings.bookmarks.indexOf(this.navParams.data.kafisma) !== -1;
+    return this.settings.bookmarks.indexOf(this.kafisma) !== -1;
   }
 
   public getTranslateX(): string {
@@ -252,8 +260,27 @@ export class PageView {
     return this.pagesTotal;
   }
 
-  public goKafisma(id): void {
-    this.navParams.navCtrl.setRoot(PageView)
+  public goKafisma(id: string): void {
+    console.log('goKafisma', id);
+    this.kafisma = id;
+    this.setHistoryTimeOut = setTimeout(() => {
+      this.addHistory();
+    }, 10000);
+    this.page = 0;
+    this.loadContent();
+  }
+
+  updateTitle() {
+    if (this.kafisma) {
+      let item = Contents.getItem(this.kafisma);
+      this.title = item[this.settings.textSource];
+    } else {
+      if (this.settings.textSource === 'ru') {
+        this.title = this.navParams.data.ru;
+      } else {
+        this.title = this.navParams.data.cs;
+      }
+    }
   }
 
   public getPsalm(id: string): string {
@@ -261,8 +288,7 @@ export class PageView {
       if (!this.psalmsTreeRu) {
         let cont: string = '';
         for (let i = 1; i < 21; i++ ) {
-          let key = i < 10 ? '0' + i : '' + i;
-          cont += this.data.psalm.ru[key].data;
+          cont += this.data.psalm.ru[i].data;
         }
         this.psalmsTreeRu = $('<div></div>').html(cont);
       }
@@ -290,8 +316,7 @@ export class PageView {
       if (!this.psalmsTreeCs) {
         let cont: string = '';
         for (let i = 1; i < 21; i++ ) {
-          let key = i < 10 ? '0' + i : '' + i;
-          cont += this.data.psalm.cs[key].data;
+          cont += this.data.psalm.cs[i].data;
         }
         this.psalmsTreeCs = $('<div></div>').html(cont);
       }
