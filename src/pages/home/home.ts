@@ -17,7 +17,7 @@ declare var moment:any;
 export class HomePage {
   public settings;
   public bookmarks: Array<{item: any, component: any, note: string}> = [];
-  public history: Array<{item: any, component: any, note: string}> = [];
+  public history: Array<{item: any, component: any, note: string, page: number, scroll: number}> = [];
   public psalms: Array<{item: any, component: any, note: string}> = [];
 
   constructor(public navCtrl: NavController,
@@ -50,7 +50,9 @@ export class HomePage {
       this.history.push({
         item: kafizma['kafisma' + item.kafisma],
         component: PageView,
-        note: moment(item.date).format('HH:mm DD.MM.YY  ')
+        note: moment(item.date).format('HH:mm DD.MM.YY'),
+        page: item.page,
+        scroll: item.scroll
       });
     });
     console.log('loadHistory', this.history);
@@ -74,11 +76,10 @@ export class HomePage {
     console.log('loadPsalms', this.psalms);
   }
 
-  openPage(page: any, params: any): void {
+  openPage(page: any): void {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    params.navCtrl = this.navCtrl;
-    this.navCtrl.setRoot(page.component, params);
+    this.navCtrl.setRoot(page.component, page);
   }
 
   removeBookmark(page): void {

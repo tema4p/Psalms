@@ -12,7 +12,7 @@
       </button>
       <ng-container *ngFor="let p of pages">
         <button menuClose ion-item
-                (click)="openPage(p, p.item)"
+                (click)="openPage(p)"
                 *ngIf="p.item[settingsService.settings.textSource]">
           <span [ngClass]="{'irmologion' : (settingsService.settings.textSource === 'cs')}">
             {{p.item[settingsService.settings.textSource]}}

@@ -107,7 +107,7 @@ page-page-view {
   .psal i, .psal-17 i, .namepsal i, .com i, .namepsal ~ p i {
     font-size: 60%;
     margin-right: 2px;
-    vertical-align: super;
+    vertical-align: top;
   }
 
   p.ogl, p.ogl a:link, p.ogl a:hover, p.ogl a:active, p.ogl a:visited {
@@ -182,7 +182,7 @@ page-page-view {
   }
 
   #contentContainer {
-    padding: 10px;
+    padding: 20px 10px 30px;
   }
 
 

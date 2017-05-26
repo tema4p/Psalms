@@ -9,7 +9,7 @@
 
     <ion-item>
       <ion-label>Текст:</ion-label>
-      <ion-select [(ngModel)]="settings.textSource">
+      <ion-select okText="Сохранить" cancelText="Отмена" [(ngModel)]="settings.textSource">
         <ion-option value="ru">Гражданский</ion-option>
         <ion-option value="cs">Церковнославянский</ion-option>
       </ion-select>
@@ -17,21 +17,21 @@
 
     <ion-item>
       <ion-label>Размер шрифта:</ion-label>
-      <ion-select [(ngModel)]="settings.fontSize">
+      <ion-select okText="Сохранить" cancelText="Отмена" [(ngModel)]="settings.fontSize">
         <ion-option value="{{n}}" *ngFor="let n of fontsRange">{{n}}</ion-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label>Шрифт:</ion-label>
-      <ion-select [(ngModel)]="settings.fontFamily">
+      <ion-select okText="Сохранить" cancelText="Отмена" [(ngModel)]="settings.fontFamily">
         <ion-option value="{{n}}" *ngFor="let n of fonts">{{n}}</ion-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label>Цветовая схема:</ion-label>
-      <ion-select [(ngModel)]="settings.theme">
+      <ion-select okText="Сохранить" cancelText="Отмена" [(ngModel)]="settings.theme">
         <ion-option value="night">Ночная</ion-option>
         <ion-option value="normal">Обычная</ion-option>
       </ion-select>

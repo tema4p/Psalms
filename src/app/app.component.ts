@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Config } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -26,7 +26,8 @@ export class MyApp {
               public statusBar: StatusBar,
               public splashScreen: SplashScreen,
               public settingsService: SettingsService,
-              private rateService: RateService) {
+              private rateService: RateService,
+              private config: Config) {
     this.initializeApp();
 
     this.pages = [];
@@ -57,14 +58,14 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.config.set('backButtonText', 'Назад');
     });
   }
 
-  openPage(page: any, params: any): void {
+  openPage(page: any): void {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    params.nav = this.nav;
-    this.nav.setRoot(page.component, params);
+    this.nav.setRoot(page.component, page);
   }
 
   openHome(): void {

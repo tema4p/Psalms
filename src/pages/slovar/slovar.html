@@ -9,7 +9,7 @@
 
 <ion-content>
 
-  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-searchbar (ionInput)="getItems($event)" placeholder="Поиск"></ion-searchbar>
   <ion-list class="words-list" >
     <div class="word" *ngFor="let item of words">
       <span class="title">{{item.word}}: </span>
