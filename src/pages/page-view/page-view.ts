@@ -46,6 +46,10 @@ export class PageView {
     adds: {
       cs: (<any> window).addsCs,
       ru: (<any> window).addsRu,
+    },
+    chin: {
+      cs: (<any> window).chinCs,
+      ru: (<any> window).chinRu,
     }
   };
 
@@ -151,6 +155,8 @@ export class PageView {
       this.content = this.data.adds[this.settings.textSource][this.navParams.data.item.add].data;
     } else if (this.navParams.data.item.psalm) {
       this.content = this.getPsalm(this.navParams.data.item.psalm);
+    } else if (this.navParams.data.item.chin) {
+      this.content = this.data.chin[this.settings.textSource][this.navParams.data.item.chin].data;
     }
 
     this.updateTitle();

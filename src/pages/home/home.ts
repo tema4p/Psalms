@@ -46,11 +46,11 @@ export class HomePage {
     let kafizma = Contents.getKafizmaList();
     this.history = [];
     this.settings = this.settingsService.getSettings();
-    _.each(this.settings.history, (item) => {
+    _.each(this.settings.history.reverse(), (item) => {
       this.history.push({
         item: kafizma['kafisma' + item.kafisma],
         component: PageView,
-        note: moment(item.date).format('HH:mm DD.MM.YY'),
+        note: moment(item.date).format('DD.MM.YY HH:mm'),
         page: item.page,
         scroll: item.scroll
       });

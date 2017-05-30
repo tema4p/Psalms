@@ -50,6 +50,8 @@ export class MyApp {
     this.pages.push({ item: other['posled'], component: PageView });
     this.pages.push({ item: other['pomannik'], component: PageView });
     this.pages.push({ item: other['info'], component: PageView });
+    this.pages.push({ item: other['6p'], component: PageView });
+    this.pages.push({ item: other['12p'], component: PageView });
   }
 
   initializeApp() {
