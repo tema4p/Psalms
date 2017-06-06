@@ -33,5 +33,12 @@
 .irmologion h1,h2,h3 { font-weight: 400 !important; }
 
 .forceRu {
-  font-family: inherit !important;
+  font-family: Times !important;
 }
+
+.irmologion {
+  .toolbar-title {
+    text-overflow: inherit;
+  }
+}
+

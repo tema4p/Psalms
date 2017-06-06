@@ -14,7 +14,8 @@
         <button menuClose ion-item
                 (click)="openPage(p)"
                 *ngIf="p.item[settingsService.settings.textSource]">
-          <span [ngClass]="{'irmologion' : (settingsService.settings.textSource === 'cs')}">
+          <span [ngClass]="{'irmologion': (settingsService.settings.textSource === 'cs'),
+                            'forceRu': !!p.item['forceRu'] && settingsService.settings.textSource === 'cs'}">
             {{p.item[settingsService.settings.textSource]}}
           </span>
           <ion-note item-right>{{p.note}}</ion-note>

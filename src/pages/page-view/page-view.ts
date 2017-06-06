@@ -289,7 +289,7 @@ export class PageView {
       let item = Contents.getItem(this.kafisma);
       this.title = item[this.settings.textSource];
     } else {
-      this.title = this.navParams.data[this.settings.textSource];
+      this.title = this.navParams.data.item[this.settings.textSource];
     }
   }
 

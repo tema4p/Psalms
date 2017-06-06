@@ -46,7 +46,9 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button outline small *ngIf="+kafisma > 1" (click)="goKafisma(+kafisma - 1)">
+          <button ion-button outline small *ngIf="+kafisma > 1"
+                  class="forceRu"
+                  (click)="goKafisma(+kafisma - 1)">
             <ion-icon name="arrow-dropleft"></ion-icon>
             &nbsp;&nbsp;
             Кафизма {{+kafisma - 1}}
@@ -54,7 +56,9 @@
         </ion-col>
         <ion-col></ion-col>
         <ion-col>
-          <button ion-button outline small *ngIf="+kafisma < 20" (click)="goKafisma(1 + (1*kafisma))">
+          <button ion-button outline small *ngIf="+kafisma < 20"
+                  class="forceRu"
+                  (click)="goKafisma(1 + (1*kafisma))">
             Кафизма {{1 + (1*kafisma)}}
             &nbsp;&nbsp;
             <ion-icon name="arrow-dropright"></ion-icon>
@@ -68,7 +72,9 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button outline small *ngIf="+kafisma > 1" (click)="goKafisma(+kafisma - 1)">
+          <button ion-button outline small *ngIf="+kafisma > 1"
+                  class="forceRu"
+                  (click)="goKafisma(+kafisma - 1)">
             <ion-icon name="arrow-dropleft"></ion-icon>
             &nbsp;&nbsp;
             Кафизма {{+kafisma - 1}}
@@ -76,7 +82,9 @@
         </ion-col>
         <ion-col></ion-col>
         <ion-col>
-          <button ion-button outline small *ngIf="+kafisma < 20" (click)="goKafisma(1 + (1*kafisma))">
+          <button ion-button outline small *ngIf="+kafisma < 20"
+                  class="forceRu"
+                  (click)="goKafisma(1 + (1*kafisma))">
             Кафизма {{1 + (1*kafisma)}}
             &nbsp;&nbsp;
             <ion-icon name="arrow-dropright"></ion-icon>
@@ -95,6 +103,7 @@
 
   <div class="pages-info" [ngClass]="{'hidden': (!enableInfo)}" *ngIf="settings.bookMode">
     <button ion-button icon-only [clear]="true"
+            class="forceRu"
             [ngClass]="{'disabled': (page === 0)}"
             (click)="goPage(page - 1)">
       <ion-icon name="arrow-dropleft"></ion-icon>
@@ -105,6 +114,7 @@
     </button>
 
     <button ion-button icon-only [clear]="true"
+            class="forceRu"
             [ngClass]="{'disabled': (page + 1 === pagesTotal)}"
             (click)="goPage(page + 1)">
       <ion-icon name="arrow-dropright"></ion-icon>
