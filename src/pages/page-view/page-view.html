@@ -26,7 +26,7 @@
 </ion-header>
 
 
-<ion-content padding [ngClass]="[settings.theme, displayOrientation]">
+<ion-content padding [ngClass]="[settings.theme, (isLandscape ? 'landscape' : '')]">
 
   <div id="contentContainer"
        (swipeleft)="goPage(page + 1)"
@@ -69,7 +69,7 @@
 
     <div [innerHTML]="content | safeHtml"></div>
 
-    <ion-grid>
+    <ion-grid class="after_page">
       <ion-row>
         <ion-col>
           <button ion-button outline small *ngIf="+kafisma > 1"

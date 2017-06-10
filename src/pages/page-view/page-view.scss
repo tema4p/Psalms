@@ -186,7 +186,7 @@ page-page-view {
   }
 
 
-  .landscape-primary {
+  .landscape {
     .bookMode {
       column-width: calc(50vw - 50px);
     }
@@ -303,5 +303,13 @@ page-page-view {
   .sreda {
     width: 100%;
     float: right;
+  }
+
+  .after_page {
+    padding: 0;
+    margin: 0;
+    .row {
+      min-height: 50vh;
+    }
   }
 }

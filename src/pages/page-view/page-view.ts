@@ -25,10 +25,11 @@ declare var moment:any;
 export class PageView {
   public content: string = '';
   public title: string = '';
+  public titleForceRu: boolean = false;
   public settings: any = {};
   public page: number = 0;
   public pagesTotal: number = 0;
-  public displayOrientation: string = (<any> window).screen.orientation.type;
+  public isLandscape: boolean = (<any> window).screen.orientation.type.indexOf('landscape') > -1;
   public enableInfo: boolean = true;
   public hideInfoTimeOut: any;
   public container: any;
@@ -140,7 +141,7 @@ export class PageView {
       //console.log('this.page', this.page);
       //console.log('this.pagesTotal', this.pagesTotal);
       //console.log('progress', progress);
-      this.displayOrientation = (<any> window).screen.orientation.type;
+      this.isLandscape = (<any> window).screen.orientation.type.indexOf('landscape') > -1;
       setTimeout(() => {
         this.calculatePagesTotal();
         this.goPage(Math.round(this.pagesTotal * progress));
@@ -280,8 +281,13 @@ export class PageView {
 
   public calculatePagesTotal(): number {
     if (!this.container) return 1;
-    let pages = this.container.scrollWidth / window.screen.availWidth;
+    // let pages = this.container.scrollWidth / window.screen.availWidth;
+    let pages = $('.after_page')[0].offsetLeft / $('.after_page')[0].offsetWidth;
+    pages = (this.isLandscape) ? pages / 2 : pages;
     this.pagesTotal = Math.ceil(pages);
+    if (this.page > this.pagesTotal) {
+      this.page = this.pagesTotal;
+    }
     return this.pagesTotal;
   }
 
