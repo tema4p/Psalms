@@ -42,3 +42,32 @@
   }
 }
 
+$bg1: #544039;
+$bg2: #231e1a;
+$font1: #f3eae3;
+
+.night {
+  .toolbar-title, .bar-button {
+    color: $font1;
+  }
+  .toolbar-background, .searchbar-input {
+    background: $bg1;
+  }
+  .content, .item, button[color="light"] {
+    background: $bg2;
+    color: $font1;
+  }
+
+  button {
+    color: #F18F7B;
+  }
+  .item-inner {
+    border-color: #404040 !important;
+  }
+  .pages-info {
+    background-color: rgba(255, 255, 255, 0.1);
+    .button-inner, button {
+      color: $font1;
+    }
+  }
+}

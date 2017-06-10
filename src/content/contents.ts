@@ -29,8 +29,8 @@ const otherList: any = {
     'posled':  {'add': 'posled',  'ru': 'Последование по исходе души от тела', 'cs': 'Послёдованіе по и3сх0дэ души2 t тёла'},
     'pomannik':{'add': 'pomannik','ru': false, 'cs': 'Помsнникъ'},
     'info':    {'add': 'info',    'ru': 'О псалмопении', 'cs': false},
-    '6p':      {'chin': '6p',    'ru': 'Шестопсалмие', 'cs': 'Шестопсалмие', 'forceRu': true},
-    '12p':     {'chin': '12p',   'ru': 'Чин чтения 12-ти псалмов', 'cs': 'Чин чтения 12-ти псалмов', 'forceRu': true}
+    '6p':      {'chin': '6p',     'ru': 'Шестопсалмие', 'cs': 'Шестопсалмие', 'forceRu': true},
+    '12p':     {'chin': '12p',    'ru': 'Чин чтения 12-ти псалмов', 'cs': 'Чин чтения 12-ти псалмов', 'forceRu': true}
 };
 
 export class Contents {

@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 
-declare var _: any;
+declare let _: any;
+declare let $: any;
+
 const psalmsRange = {
   '1':  '1-8',
   '2':  '9-16',
@@ -45,12 +47,14 @@ export class SettingsService {
   constructor() {
     this.loadSettings();
     console.log('SettingsService init');
+    this.updateTheme();
   }
 
   saveSettings(settings: any): any {
     this.settings = settings;
     localStorage['settings'] = JSON.stringify(this.settings);
     console.log('SaveSettings', this.settings);
+    this.updateTheme();
   }
 
   loadSettings(): any {
@@ -68,5 +72,11 @@ export class SettingsService {
 
   getPsalmsRange(kafizma: string): any {
     return psalmsRange[kafizma];
+  }
+
+  updateTheme(): void {
+    $('body')
+      .toggleClass('night', this.settings.theme === 'night')
+      .toggleClass('normal', this.settings.theme === 'normal');
   }
 }

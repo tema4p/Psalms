@@ -77,6 +77,10 @@ export class PageView {
     }
   }
 
+  ionViewDidEnter() {
+    this.calculatePagesTotal();
+  }
+
   initContent() {
     let newSettings = this.settingsService.getSettings();
     if (this.content === '' ||
@@ -141,7 +145,7 @@ export class PageView {
         this.calculatePagesTotal();
         this.goPage(Math.round(this.pagesTotal * progress));
         this.chRef.detectChanges();
-      }, 300);
+      }, 400);
     });
     window.addEventListener("orientationchange", this.rotationHandler, false);
   }
@@ -255,6 +259,10 @@ export class PageView {
     }
     //console.log('goPage', n, ' / ', this.pagesTotal);
     this.calculatePagesTotal();
+    setTimeout(() => {
+      this.calculatePagesTotal();
+    }, 1000);
+
     this.showInfo();
     this.addHistory();
   }
@@ -290,6 +298,7 @@ export class PageView {
       this.title = item[this.settings.textSource];
     } else {
       this.title = this.navParams.data.item[this.settings.textSource];
+      this.forceTitleRu = this.navParams.data.item.forceRu;
     }
   }
 
