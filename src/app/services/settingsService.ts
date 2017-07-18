@@ -32,6 +32,7 @@ export class SettingsService {
     fontSize: '16',
     fontFamily: "Times New Roman",
     textSource: 'ru',
+    lineHeight: 120,
     theme: 'normal',
     perenos: false,
     hyphens: true,

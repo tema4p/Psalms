@@ -1,4 +1,4 @@
-page-page-view {
+page-page-view, page-sinod {
   hyphens: auto;
 
   .scroll-content {
@@ -104,10 +104,12 @@ page-page-view {
   .night .psal b, .night .psal-17 b  { color: #ff4f4f;}
 
 
-  .psal i, .psal-17 i, .namepsal i, .com i, .namepsal ~ p i {
+  .psal i, .psal-17 i, .namepsal i, .com i {
     font-size: 60%;
     margin-right: 2px;
+    padding-bottom: 5px;
     vertical-align: top;
+    margin-bottom: 5px;
   }
 
   p.ogl, p.ogl a:link, p.ogl a:hover, p.ogl a:active, p.ogl a:visited {
@@ -181,6 +183,10 @@ page-page-view {
     will-change: transform;
   }
 
+  .horizontalScroll {
+    height: 90vh;
+  }
+
   #contentContainer {
     padding: 20px 10px 30px;
   }
@@ -242,6 +248,7 @@ page-page-view {
   .night .ui-btn:hover {
     background-color: #393939 !important;
   }
+
   .night .ui-btn:active {
     background-color: #444444 !important;
   }
@@ -286,6 +293,10 @@ page-page-view {
     color: #e50000;
   }
 
+  .it {
+    font-style: italic;
+  }
+
   .night .i { color: #ff4f4f;}
 
   .info-ps {
@@ -309,7 +320,7 @@ page-page-view {
     padding: 0;
     margin: 0;
     .row {
-      min-height: 50vh;
+      //min-height: 50vh;
     }
   }
 }

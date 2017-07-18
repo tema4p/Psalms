@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { SlovarPage } from '../pages/slovar/slovar';
 import { PageView } from '../pages/page-view/page-view';
 import { SettingsPage } from '../pages/settings/settings';
+import { SinodPage } from '../pages/sinod/sinod';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -26,6 +27,7 @@ export class SafeHtmlPipe implements PipeTransform  {
     MyApp,
     HomePage,
     SettingsPage,
+    SinodPage,
     PageView,
     SlovarPage,
     SafeHtmlPipe,
@@ -40,6 +42,7 @@ export class SafeHtmlPipe implements PipeTransform  {
     MyApp,
     HomePage,
     SettingsPage,
+    SinodPage,
     PageView,
     SlovarPage,
     PsalmPopover

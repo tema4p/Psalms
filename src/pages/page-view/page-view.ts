@@ -80,6 +80,7 @@ export class PageView {
 
   ionViewDidEnter() {
     this.calculatePagesTotal();
+    this.chRef.detectChanges();
   }
 
   initContent() {
@@ -188,6 +189,7 @@ export class PageView {
     this.content = el.html();
     setTimeout(() => {
       this.calculatePagesTotal();
+      this.chRef.detectChanges();
     })
   }
 
@@ -262,6 +264,7 @@ export class PageView {
     this.calculatePagesTotal();
     setTimeout(() => {
       this.calculatePagesTotal();
+      this.chRef.detectChanges();
     }, 1000);
 
     this.showInfo();
@@ -282,11 +285,20 @@ export class PageView {
   public calculatePagesTotal(): number {
     if (!this.container) return 1;
     // let pages = this.container.scrollWidth / window.screen.availWidth;
-    let pages = $('.after_page')[0].offsetLeft / $('.after_page')[0].offsetWidth;
-    pages = (this.isLandscape) ? pages / 2 : pages;
+    let pages: number;
+
+    if (this.isLandscape) {
+      pages =($('.after_page')[0].offsetLeft - 10) / ($('.after_page')[0].offsetWidth + 10) / 2;
+    } else {
+      pages =($('.after_page')[0].offsetLeft - 10) / ($('.after_page')[0].offsetWidth + 10)
+    }
+
+    console.log('pages', pages);
     this.pagesTotal = Math.ceil(pages);
-    if (this.page > this.pagesTotal) {
-      this.page = this.pagesTotal;
+
+    console.log('this.page', this.page);
+    if (this.page > (this.pagesTotal - 1)) {
+      this.page = this.pagesTotal - 1;
     }
     return this.pagesTotal;
   }

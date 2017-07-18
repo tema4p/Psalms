@@ -23,6 +23,13 @@
     </ion-item>
 
     <ion-item>
+      <ion-label>Межстрочный интервал:</ion-label>
+      <ion-select okText="Сохранить" cancelText="Отмена" [(ngModel)]="settings.lineHeight">
+        <ion-option value="{{n}}" *ngFor="let n of lineHeightRange">{{n/100}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
       <ion-label>Шрифт:</ion-label>
       <ion-select okText="Сохранить" cancelText="Отмена" [(ngModel)]="settings.fontFamily">
         <ion-option value="{{n}}" *ngFor="let n of fonts">{{n}}</ion-option>

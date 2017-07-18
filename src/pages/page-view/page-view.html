@@ -40,7 +40,8 @@
 
        [ngStyle]="{'fontFamily': (settings.textSource === 'ru') ? settings.fontFamily : false,
                    'font-size': settings.fontSize + 'px',
-                   'transform': 'translate3d(' + getTranslateX() + ', 0, 0)' }">
+                   'transform': 'translate3d(' + getTranslateX() + ', 0, 0)',
+                   'line-height': settings.lineHeight + '%'}">
 
 
     <ion-grid>
