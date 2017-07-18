@@ -79,8 +79,10 @@ export class PageView {
   }
 
   ionViewDidEnter() {
-    this.calculatePagesTotal();
-    this.chRef.detectChanges();
+    setTimeout(() => {
+      this.calculatePagesTotal();
+      this.chRef.detectChanges();
+    }, 400);
   }
 
   initContent() {
@@ -97,6 +99,7 @@ export class PageView {
 
     if (!this.settings.bookMode) {
       this.page = 0;
+      this.chRef.detectChanges();
       return;
     }
   }
@@ -254,6 +257,7 @@ export class PageView {
     console.log('goPage', n);
     if (!this.settings.bookMode) {
       this.page = 0;
+      this.chRef.detectChanges();
       return;
     }
 
@@ -284,6 +288,11 @@ export class PageView {
 
   public calculatePagesTotal(): number {
     if (!this.container) return 1;
+
+    if (!this.settings.bookMode) {
+      this.page = 0;
+      return;
+    }
     // let pages = this.container.scrollWidth / window.screen.availWidth;
     let pages: number;
 
@@ -314,6 +323,9 @@ export class PageView {
     if (this.kafisma) {
       let item = Contents.getItem(this.kafisma);
       this.title = item[this.settings.textSource];
+    } else if (this.navParams.data.item.psalm) {
+      this.title = this.navParams.data.item[this.settings.textSource];
+      this.forceTitleRu = true;
     } else {
       this.title = this.navParams.data.item[this.settings.textSource];
       this.forceTitleRu = this.navParams.data.item.forceRu;
