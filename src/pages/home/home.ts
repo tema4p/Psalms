@@ -16,6 +16,7 @@ declare var moment:any;
 })
 export class HomePage {
   public settings;
+  public isIntroHidden: string = '';
   public bookmarks: Array<{item: any, component: any, note: string}> = [];
   public history: Array<{item: any, component: any, note: string, page: number, scroll: number}> = [];
   public psalms: Array<{item: any, component: any, note: string}> = [];
@@ -26,6 +27,7 @@ export class HomePage {
     this.loadBookmarks();
     this.loadPsalms();
     this.loadHistory();
+    this.isIntroHidden = localStorage['isIntroHidden'];
   }
 
   loadBookmarks(): void {
@@ -112,5 +114,15 @@ export class HomePage {
   ionViewWillEnter() {
     console.log('enter');
     this.settings = this.settingsService.getSettings();
+  }
+
+  hideIntro(): void {
+    this.isIntroHidden = 'true';
+    localStorage['isIntroHidden'] = this.isIntroHidden;
+  }
+
+  showIntro(): void {
+    this.isIntroHidden = 'false';
+    localStorage['isIntroHidden'] = this.isIntroHidden;
   }
 }
