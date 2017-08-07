@@ -29,7 +29,7 @@ const psalmsRange = {
 @Injectable()
 export class SettingsService {
   public settings: any = {
-    fontSize: '16',
+    fontSize: '18',
     fontFamily: "Times New Roman",
     textSource: 'ru',
     lineHeight: 120,
