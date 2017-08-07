@@ -7,11 +7,12 @@
 <ion-content padding [ngClass]="[settings.theme]">
 
   <div id="contentContainer">
-    <div class="psal" [innerHTML]="content | safeHtml"[ngClass]="{'irmologion' : (settings.textSource === 'cs'),
-                   'noPerenos':(!settings.perenos),
-                   'hyphens':  (settings.hyphens),
-                   'justify':  (settings.justify),
-                   'bookMode': (settings.bookMode)}"
+    <div class="psal"
+         [innerHTML]="content | safeHtml"
+         [ngClass]="{'noPerenos':(!settings.perenos),
+                     'hyphens':  (settings.hyphens),
+                     'justify':  (settings.justify),
+                     'bookMode': (settings.bookMode)}"
 
          [ngStyle]="{'fontFamily': (settings.textSource === 'ru') ? settings.fontFamily : false,
                    'font-size': settings.fontSize + 'px',

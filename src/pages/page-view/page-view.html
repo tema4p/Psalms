@@ -14,7 +14,7 @@
     <ion-buttons end>
       <button ion-button icon-only (click)="setBookMark()"
               [ngClass]="{'not-marked': !isMarked()}"
-              *ngIf="navParams.data.kafisma">
+              *ngIf="navParams.data.item.kafisma">
         <ion-icon name="ios-bookmark"></ion-icon>
       </button>
       <button ion-button icon-only (click)="goSettings()">
