@@ -37,6 +37,8 @@ export class PageView {
   public psalmsTreeCs: any;
   public kafisma: string;
 
+  public psalmJson: any;
+
   public forceTitleRu: boolean = false;
 
   public data: any = {
@@ -51,6 +53,12 @@ export class PageView {
     chin: {
       cs: (<any> window).chinCs,
       ru: (<any> window).chinRu,
+    }
+  };
+
+  public dataJson: any = {
+    psalm: {
+      ru: (<any> window).psalmRuJson,
     }
   };
 
@@ -128,6 +136,7 @@ export class PageView {
     console.log($(this.viewElement.nativeElement));
     $(this.viewElement.nativeElement).on('click touch', '[psalm]', (e: any) => {
       let popover = this.popoverCtrl.create(PsalmPopover, {
+        elem: this.viewElement.nativeElement,
         event: e,
         toastCtrl: this.toastCtrl,
         settingsService: this.settingsService,
@@ -156,14 +165,12 @@ export class PageView {
   }
 
   loadContent() {
-    if (this.kafisma) {
-      console.log('this.data.psalm', this.data.psalm);
-      console.log('this.settings.textSource', this.settings.textSource  );
-      this.content = this.data.psalm[this.settings.textSource][this.kafisma].data;
-    } else if (this.navParams.data.item.add) {
+    if (this.navParams.data.item.add) {
       this.content = this.data.adds[this.settings.textSource][this.navParams.data.item.add].data;
     } else if (this.navParams.data.item.psalm) {
-      this.content = this.getPsalm(this.navParams.data.item.psalm);
+      // this.content = this.getPsalm(this.navParams.data.item.psalm);
+      this.psalmJson = this.dataJson.psalm.ru[this.navParams.data.item.psalm];
+      console.log('this.psalmJson', this.psalmJson);
     } else if (this.navParams.data.item.chin) {
       this.content = this.data.chin[this.settings.textSource][this.navParams.data.item.chin].data;
     }
@@ -180,15 +187,15 @@ export class PageView {
       return;
     }
     let el = $('<div></div>').html(this.content);
-    if (this.settings.adds) {
-      el.find('.trisv').html(this.data.adds['ru']['trisv'].data);
-      el.find('.slava').html(this.data.adds['ru']['slava'].data).removeClass('red').removeClass('center');
-      el.find('.slavaPre').html(this.data.adds['ru']['slavaPre'].data).removeClass('red').removeClass('center');
-    }
-    if (this.settings.repose) {
-      el.find('.slava').html(this.data.adds['ru']['repose'].data).removeClass('red').removeClass('center');
-      el.find('.trop-normal').html(this.data.adds['ru']['reposeM'].data);
-    }
+    // if (this.settings.adds) {
+    //   el.find('.trisv').html(this.data.adds['ru']['trisv'].data);
+    //   el.find('.slava').html(this.data.adds['ru']['slava'].data).removeClass('red').removeClass('center');
+    //   el.find('.slavaPre').html(this.data.adds['ru']['slavaPre'].data).removeClass('red').removeClass('center');
+    // }
+    // if (this.settings.repose) {
+    //   el.find('.slava').html(this.data.adds['ru']['repose'].data).removeClass('red').removeClass('center');
+    //   el.find('.trop-normal').html(this.data.adds['ru']['reposeM'].data);
+    // }
     this.content = el.html();
     setTimeout(() => {
       this.calculatePagesTotal();

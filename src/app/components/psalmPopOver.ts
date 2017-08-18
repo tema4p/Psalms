@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {ViewController} from 'ionic-angular';
 declare var _: any;
+declare var $: any;
 import {ToastController} from 'ionic-angular';
 import {SettingsService} from '../services/settingsService';
 import {NavController} from 'ionic-angular';
@@ -13,6 +14,7 @@ import {SinodPage} from "../../pages/sinod/sinod";
       <button ion-item (click)="setPsalmFavorite()" *ngIf="!isMarked()">Добавить в избранное</button>
       <button ion-item (click)="setPsalmFavorite()" *ngIf="isMarked()">Удалить из избарнного</button>
       <button ion-item (click)="goPsalmSn()">Синодальный перевод</button>
+      <button ion-item (click)="paralSn()">Параллельный синод. перевод</button>
     </ion-list>
   `
 })
@@ -30,7 +32,6 @@ export class PsalmPopover {
     this.settingsService = this.viewCtrl.data.settingsService;
     this.toastCtrl = this.viewCtrl.data.toastCtrl;
     this.settings = this.settingsService.getSettings();
-
     let target = this.viewCtrl.data.event.currentTarget;
     if (target.id) {
       this.psalmId = target.id.match(/\d+/g)[0];
@@ -38,11 +39,9 @@ export class PsalmPopover {
       this.psalmId = target.innerHTML.match(/\d+/g)[0];
     }
     this.title = 'Псалом ' + this.psalmId;
-    console.log('this.psalmId', this.psalmId);
   }
 
   close() {
-    console.log('viewCtrl', this.viewCtrl);
     this.viewCtrl.dismiss();
   }
 
@@ -74,5 +73,9 @@ export class PsalmPopover {
 
   goPsalmSn() {
     this.navCtrl.push(SinodPage, {psalm: +this.psalmId, settings: this.settings});
+  }
+
+  paralSn() {
+    console.log('paralSn');
   }
 }

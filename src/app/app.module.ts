@@ -13,6 +13,10 @@ import { SinodPage } from '../pages/sinod/sinod';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { PsalmPopover } from './components/psalmPopOver'
+import { Psalm } from './components/psalm/psalm.component'
+import { Adds } from './components/adds/adds.component'
+import { Kafisma } from './components/kafisma/kafisma.component';
+import { Ends } from './components/ends/ends.component';
 
 @Pipe({ name: 'safeHtml'})
 export class SafeHtmlPipe implements PipeTransform  {
@@ -31,7 +35,11 @@ export class SafeHtmlPipe implements PipeTransform  {
     PageView,
     SlovarPage,
     SafeHtmlPipe,
-    PsalmPopover
+    PsalmPopover,
+    Kafisma,
+    Adds,
+    Ends,
+    Psalm
   ],
   imports: [
     BrowserModule,
@@ -45,7 +53,11 @@ export class SafeHtmlPipe implements PipeTransform  {
     SinodPage,
     PageView,
     SlovarPage,
-    PsalmPopover
+    PsalmPopover,
+    Kafisma,
+    Adds,
+    Ends,
+    Psalm
   ],
   providers: [
     StatusBar,

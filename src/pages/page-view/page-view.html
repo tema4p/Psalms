@@ -68,6 +68,14 @@
       </ion-row>
     </ion-grid>
 
+    <psalm *ngIf="navParams.data.item.psalm"
+           [psalmNumber]="navParams.data.item.psalm">
+    </psalm>
+
+    <kafisma *ngIf="kafisma" [kafismaNumber]="kafisma"
+              [settings]="settingsService.settings">
+    </kafisma>
+
     <div [innerHTML]="content | safeHtml"></div>
 
     <ion-grid class="after_page">

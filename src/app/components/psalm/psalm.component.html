@@ -1,0 +1,20 @@
+<div *ngIf="psalm && psalm.id">
+
+<p class="namepsal"
+   psalm>Псалом <span class="forceRu">{{psalm.id}}</span>
+</p>
+
+<p>
+  <span *ngIf="psalm.strings[0]" [innerHTML]="psalm.strings[0].v | safeHtml"></span>
+</p>
+
+<p class="psal">
+  <span *ngFor="let s of strings"
+        [ngClass]="{'isTitle': s.t}">
+    <span *ngIf="!s.t">
+      <i>{{s.i || s.n}}</i><span [innerHTML]="s.v | safeHtml"></span><br/>
+    </span>
+  </span>
+</p>
+
+</div>

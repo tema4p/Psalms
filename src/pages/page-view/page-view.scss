@@ -8,9 +8,10 @@ page-page-view, page-sinod {
 
 
 
-  .namepsal + p {
+  .namepsal + p, .isTitle {
     color: #E50000;
     text-align: center;
+    display: block;
   }
   .night .namepsal + p { color: #ff4f4f;}
 
@@ -315,6 +316,14 @@ page-page-view, page-sinod {
     margin: 0;
     .row {
       //min-height: 50vh;
+    }
+  }
+
+  .psalmSn {
+    display: block;
+    color: darkblue;
+    i {
+      color: #413dff;
     }
   }
 }
