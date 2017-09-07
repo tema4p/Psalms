@@ -19,7 +19,7 @@ export class HomePage {
   public isIntroHidden: string = '';
   public bookmarks: Array<{item: any, component: any, note: string}> = [];
   public history: Array<{item: any, component: any, note: string, page: number, scroll: number}> = [];
-  public psalms: Array<{item: any, component: any, note: string}> = [];
+  public psalms: Array<{item: any, component: any, note: string, isFavorite?: boolean}> = [];
 
   constructor(public navCtrl: NavController,
               public toastCtrl: ToastController,
@@ -49,6 +49,7 @@ export class HomePage {
     this.history = [];
     this.settings = this.settingsService.getSettings();
     _.each(this.settings.history.reverse(), (item) => {
+      console.log('item', item);
       this.history.push({
         item: kafizma['kafisma' + item.kafisma],
         component: PageView,
@@ -70,6 +71,7 @@ export class HomePage {
           'ru': 'Псалом ' + (+item),
           'cs': 'Псалом ' + (+item)
         },
+        isFavorite: true,
         component: PageView,
         note: ''
       });

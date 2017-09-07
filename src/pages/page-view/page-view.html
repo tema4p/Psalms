@@ -26,7 +26,7 @@
 </ion-header>
 
 
-<ion-content padding [ngClass]="[settings.theme, (isLandscape ? 'landscape' : '')]">
+<ion-content padding [ngClass]="[settings.theme, (isLandscape ? 'landscape' : ''), (!settings.bookMode ? 'forceScrollBar' : '')]">
 
   <div id="contentContainer"
        (swipeleft)="goPage(page + 1)"
@@ -69,11 +69,14 @@
     </ion-grid>
 
     <psalm *ngIf="navParams.data.item.psalm"
-           [psalmNumber]="navParams.data.item.psalm">
+           [psalmNumber]="navParams.data.item.psalm"
+           [settings]="settingsService.settings">
     </psalm>
 
+
+
     <kafisma *ngIf="kafisma" [kafismaNumber]="kafisma"
-              [settings]="settingsService.settings">
+             [settings]="settingsService.settings">
     </kafisma>
 
     <div [innerHTML]="content | safeHtml"></div>
@@ -96,6 +99,28 @@
                   (click)="goKafisma(1 + (1*kafisma))">
             Кафизма {{1 + (1*kafisma)}}
             &nbsp;&nbsp;
+            <ion-icon name="arrow-dropright"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="after_page">
+      <ion-row>
+        <ion-col >
+          <button ion-button outline small *ngIf="prevPsalm"
+                  class="forceRu"
+                  (click)="goPsalm(prevPsalm)">
+            <ion-icon name="arrow-dropleft"></ion-icon> &nbsp;&nbsp;
+            Псалом {{prevPsalm}}
+          </button>
+        </ion-col>
+        <ion-col></ion-col>
+        <ion-col>
+          <button ion-button outline small *ngIf="nextPsalm"
+                  class="forceRu"
+                  (click)="goPsalm(nextPsalm)">
+            Псалом {{nextPsalm}} &nbsp;&nbsp;
             <ion-icon name="arrow-dropright"></ion-icon>
           </button>
         </ion-col>

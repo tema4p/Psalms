@@ -1,1 +1,11 @@
+.translate {
+  font-size: 90%;
+  color: darkblue;
+}
 
+.line {
+  display: flex;
+  span {
+    flex: 1;
+  }
+}

@@ -327,3 +327,34 @@ page-page-view, page-sinod {
     }
   }
 }
+
+
+.forceScrollBar {
+  #contentContainer {
+    padding: 20px 0 30px 10px;
+  }
+
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+  }
+
+  ::-webkit-scrollbar:vertical {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar:horizontal {
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(81, 19, 19, 0.25);
+    border-radius: 10px;
+    border: 1.5px solid #ffffff;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #ffffff;
+  }
+
+}

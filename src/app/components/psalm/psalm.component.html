@@ -1,19 +1,25 @@
 <div *ngIf="psalm && psalm.id">
 
-<p class="namepsal"
-   psalm>Псалом <span class="forceRu">{{psalm.id}}</span>
+<p class="namepsal" psalm [attr.psalmId]="psalm.id">
+  <span *ngIf="psalm.id != 151">
+    Псалом <span class="forceRu">{{psalm.id}}</span>
+  </span>
 </p>
 
-<p>
+
+<p psalm [attr.psalmId]="psalm.id">
   <span *ngIf="psalm.strings[0]" [innerHTML]="psalm.strings[0].v | safeHtml"></span>
 </p>
 
 <p class="psal">
-  <span *ngFor="let s of strings"
+  <span *ngFor="let s of strings" class="line"
         [ngClass]="{'isTitle': s.t}">
     <span *ngIf="!s.t">
       <i>{{s.i || s.n}}</i><span [innerHTML]="s.v | safeHtml"></span><br/>
     </span>
+    <!--<span *ngIf="s.v2" class="translate forceRu">-->
+      <!--<i>{{s.n2}}</i><span [innerHTML]="s.v2 | safeHtml"></span><br/>-->
+    <!--</span>-->
   </span>
 </p>
 

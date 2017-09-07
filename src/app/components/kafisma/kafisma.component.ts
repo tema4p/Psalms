@@ -1,5 +1,4 @@
 import {Component, Input, SimpleChanges} from '@angular/core';
-
 declare var _: any;
 
 @Component({

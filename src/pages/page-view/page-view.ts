@@ -37,6 +37,9 @@ export class PageView {
   public psalmsTreeCs: any;
   public kafisma: string;
 
+  public prevPsalm: string;
+  public nextPsalm: string;
+
   public psalmJson: any;
 
   public forceTitleRu: boolean = false;
@@ -72,8 +75,9 @@ export class PageView {
               private chRef: ChangeDetectorRef,
               public popoverCtrl: PopoverController) {
     this.settings = this.settingsService.getSettings();
-
   }
+
+
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter');
@@ -91,6 +95,29 @@ export class PageView {
       this.calculatePagesTotal();
       this.chRef.detectChanges();
     }, 400);
+
+    let $el = $(this.viewElement.nativeElement).find('.scroll-content:first');
+
+    document.addEventListener("volumeupbutton", () => {
+      console.log('volumeupbutton');
+      if (this.settings.bookMode) {
+        this.goPage(this.page - 1);
+      } else {
+        let step: number = $el.height() - 40;
+        let scroll: number = $el[0].scrollTop;
+        $el.animate({ scrollTop: scroll - step }, 300);
+      }
+    }, false);
+    document.addEventListener("volumedownbutton", () => {
+      console.log('volumedownbutton');
+      if (this.settings.bookMode) {
+        this.goPage(this.page + 1);
+      } else {
+        let step: number = $el.height() - 40;
+        let scroll: number = $el[0].scrollTop;
+        $el.animate({ scrollTop: scroll + step }, 300);
+      }
+    }, false);
   }
 
   initContent() {
@@ -170,7 +197,21 @@ export class PageView {
     } else if (this.navParams.data.item.psalm) {
       // this.content = this.getPsalm(this.navParams.data.item.psalm);
       this.psalmJson = this.dataJson.psalm.ru[this.navParams.data.item.psalm];
+      console.log('this.navParams.data', this.navParams.data);
       console.log('this.psalmJson', this.psalmJson);
+      if (this.navParams.data.isFavorite) {
+        this.settings.psalms = _.sortBy(this.settings.psalms, (item) => +item);
+        let index: number = this.settings.psalms.indexOf(this.navParams.data.item.psalm);
+        console.log('this.settings.psalms', this.settings.psalms);
+        console.log('index', index);
+        this.prevPsalm = (index > 0) ? this.settings.psalms[index - 1] : undefined;
+        this.nextPsalm = this.settings.psalms[index + 1] || undefined;
+      } else {
+        let prev: number = +this.navParams.data.item.psalm - 1;
+        let next: number = +this.navParams.data.item.psalm + 1;
+        this.prevPsalm = `${prev > 0 ? prev : null}`;
+        this.nextPsalm = `${next < 151 ? next : null}`;
+      }
     } else if (this.navParams.data.item.chin) {
       this.content = this.data.chin[this.settings.textSource][this.navParams.data.item.chin].data;
     }
@@ -180,6 +221,30 @@ export class PageView {
 
     console.log('this.page');
     if (this.page > 0) this.goPage(this.page);
+  }
+
+  goPsalm(psalm: string) {
+    console.log('psalm', psalm);
+    console.log({
+      item: {
+        'psalm': psalm,
+        'ru': 'Псалом ' + (+psalm),
+        'cs': 'Псалом ' + (+psalm)
+      },
+      isFavorite: true,
+      component: PageView,
+      note: ''
+    });
+    this.navCtrl.setRoot(PageView, {
+      item: {
+        'psalm': psalm,
+        'ru': 'Псалом ' + (+psalm),
+        'cs': 'Псалом ' + (+psalm)
+      },
+      isFavorite: true,
+      component: PageView,
+      note: ''
+    });
   }
 
   checkExtends() {
@@ -230,6 +295,8 @@ export class PageView {
 
   addHistory(): void {
     console.log('addHistory');
+    if (!this.kafisma) return;
+
     let last = this.settings.history[this.settings.history.length - 1];
     if (!last || (this.kafisma && last.kafisma !== this.kafisma)) {
       this.settings.history.push({

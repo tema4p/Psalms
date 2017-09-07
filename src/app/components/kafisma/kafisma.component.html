@@ -36,6 +36,24 @@
          [settings]="settings">
   </psalm>
 
+  <!--TODO: настройки переводов -->
+  <!--TODO: интервалы между стихами -->
+
+  <!--TODO: скролл кнопкой-->
+  <!--TODO: скролл бар -->
+  <!--TODO: заголовок в избранном -->
+  <!--TODO: ошибка после холодного старта на 12-ти псалмах -->
+  <!--TODO: навигация в избранном -->
+
+  <div *ngIf="kafismaNumber === '20'">
+    <!-- Slava end -->
+    <adds [addsId]="'slavaPre'"
+          [settings]="settings"></adds>
+    <psalm [psalmNumber]="151"
+           [settings]="settings">
+    </psalm>
+  </div>
+
   <!-- Slava end -->
   <adds [addsId]="'slavaPre'"
         [settings]="settings"></adds>
@@ -58,6 +76,8 @@
         class="forceRu"
         [settings]="settings">
   </adds>
+
+  <!--TODO: молитва 40 раз-->
 
   <!-- Molitva -->
   <div [innerHTML]="kafismaEnd.molitva | safeHtml"></div>

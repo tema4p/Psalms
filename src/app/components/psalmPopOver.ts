@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+
 import {ViewController} from 'ionic-angular';
 declare var _: any;
 declare var $: any;
@@ -20,24 +21,19 @@ import {SinodPage} from "../../pages/sinod/sinod";
 })
 
 export class PsalmPopover {
-  public title: string = '';
   public psalmId: string = '';
+
+  public title: string = '';
   public settings: any;
   public toastCtrl: ToastController;
   public settingsService: SettingsService;
 
   constructor(public viewCtrl: ViewController,
               public navCtrl: NavController) {
-    console.log('this.viewCtrl.data', this.viewCtrl.data);
     this.settingsService = this.viewCtrl.data.settingsService;
     this.toastCtrl = this.viewCtrl.data.toastCtrl;
     this.settings = this.settingsService.getSettings();
-    let target = this.viewCtrl.data.event.currentTarget;
-    if (target.id) {
-      this.psalmId = target.id.match(/\d+/g)[0];
-    } else {
-      this.psalmId = target.innerHTML.match(/\d+/g)[0];
-    }
+    this.psalmId = $(this.viewCtrl.data.event.currentTarget).attr('psalmid');
     this.title = 'Псалом ' + this.psalmId;
   }
 
