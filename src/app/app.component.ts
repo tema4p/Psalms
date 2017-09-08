@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, Config } from 'ionic-angular';
+import { Nav, Platform, Config, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -17,7 +17,7 @@ import { RateService } from './services/rateService';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
+  backButtonPressedOnceToExit: boolean;
   rootPage: any = HomePage;
 
   pages: Array<{item: any, component: any, note?: string}>;
@@ -27,7 +27,8 @@ export class MyApp {
               public splashScreen: SplashScreen,
               public settingsService: SettingsService,
               private rateService: RateService,
-              private config: Config) {
+              private config: Config,
+              private toastCtrl: ToastController) {
     this.initializeApp();
 
     this.pages = [];
@@ -61,7 +62,34 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.config.set('backButtonText', 'Назад');
+
+      this.platform.registerBackButtonAction(() => {
+
+        if (this.backButtonPressedOnceToExit) {
+          this.platform.exitApp();
+        } else if (this.nav.canGoBack()) {
+          this.nav.pop({});
+        } else if (this.nav.getActive().name != 'HomePage') {
+          this.openHome();
+        } else {
+          this.showToast();
+          this.backButtonPressedOnceToExit = true;
+          setTimeout(() => {
+            this.backButtonPressedOnceToExit = false;
+          },2000)
+        }
+      });
     });
+  }
+
+  showToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Нажмите еще раз для выхода из приложения',
+      duration: 2000,
+      position: 'bottom'
+    });
+
+    toast.present();
   }
 
   openPage(page: any): void {
