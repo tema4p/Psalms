@@ -12,14 +12,14 @@
 </p>
 
 <p class="psal">
-  <span *ngFor="let s of strings" class="line"
-        [ngClass]="{'isTitle': s.t}">
+  <span *ngFor="let s of strings"
+        [ngClass]="{'extraSpace': settings.extraSpace, 'isTitle': s.t, 'line': settings.translateOrientation !== 'horizontal'}">
     <span *ngIf="!s.t">
       <i>{{s.i || s.n}}</i><span [innerHTML]="s.v | safeHtml"></span><br/>
     </span>
-    <!--<span *ngIf="s.v2" class="translate forceRu">-->
-      <!--<i>{{s.n2}}</i><span [innerHTML]="s.v2 | safeHtml"></span><br/>-->
-    <!--</span>-->
+    <span *ngIf="s.v2" class="translate forceRu">
+      <i *ngIf="!s.t">{{s.n2}}</i><span [innerHTML]="s.v2 | safeHtml"></span><br/>
+    </span>
   </span>
 </p>
 

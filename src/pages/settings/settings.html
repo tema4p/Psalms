@@ -6,7 +6,6 @@
 
 <ion-content>
   <ion-list>
-
     <ion-item>
       <ion-label>Текст:</ion-label>
       <ion-select okText="Сохранить" cancelText="Отмена" [(ngModel)]="settings.textSource">
@@ -14,6 +13,24 @@
         <ion-option value="cs">Церковнославянский</ion-option>
       </ion-select>
     </ion-item>
+
+    <ion-item>
+      <ion-label>Параллельный перевод:</ion-label>
+      <ion-select okText="Сохранить" cancelText="Отмена" [(ngModel)]="settings.textSource2">
+        <ion-option value="0">Нет</ion-option>
+        <ion-option value="ru">Гражданский</ion-option>
+        <ion-option value="sn">Синодальный</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="settings.textSource2 !== '0'">
+      <ion-label>Расположение перевода:</ion-label>
+      <ion-select okText="Сохранить" cancelText="Отмена" [(ngModel)]="settings.translateOrientation">
+        <ion-option value="horizontal">Под строкой</ion-option>
+        <ion-option value="vertical">В столбик справа</ion-option>
+      </ion-select>
+    </ion-item>
+
 
     <ion-item>
       <ion-label>Размер шрифта:</ion-label>
@@ -54,6 +71,11 @@
       <ion-checkbox [(ngModel)]="settings.perenos"></ion-checkbox>
     </ion-item>
 
+    <ion-item *ngIf="settings.perenos">
+      <ion-label>Увеличенный интеврал между стихами</ion-label>
+      <ion-checkbox [(ngModel)]="settings.extraSpace"></ion-checkbox>
+    </ion-item>
+
     <ion-item>
       <ion-label>Постраничный режим</ion-label>
       <ion-checkbox [(ngModel)]="settings.bookMode"></ion-checkbox>
@@ -62,17 +84,17 @@
     <!-- Для русского языка -->
 
     <ion-item *ngIf="settings.textSource === 'ru'">
-      <ion-label>переносы в словах</ion-label>
+      <ion-label>Переносы в словах</ion-label>
       <ion-checkbox [(ngModel)]="settings.hyphens"></ion-checkbox>
     </ion-item>
 
     <ion-item *ngIf="settings.textSource === 'ru'">
-      <ion-label>раскрыть молитвы</ion-label>
+      <ion-label>Раскрыть молитвы</ion-label>
       <ion-checkbox [(ngModel)]="settings.adds"></ion-checkbox>
     </ion-item>
 
     <ion-item *ngIf="settings.textSource === 'ru'">
-      <ion-label>молитвы за упокой</ion-label>
+      <ion-label>Молитвы за упокой</ion-label>
       <ion-checkbox [(ngModel)]="settings.repose"></ion-checkbox>
     </ion-item>
 

@@ -1,11 +1,21 @@
 .translate {
-  font-size: 90%;
   color: darkblue;
+}
+
+.night .translate  {
+  color: #e5e8ff;
+}
+
+.extraSpace {
+  padding: 2px 0;
 }
 
 .line {
   display: flex;
   span {
     flex: 1;
+  }
+  span:first-child {
+    padding-right: 4px;
   }
 }

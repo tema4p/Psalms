@@ -349,12 +349,11 @@ page-page-view, page-sinod {
   ::-webkit-scrollbar-thumb {
     background-color: rgba(81, 19, 19, 0.25);
     border-radius: 10px;
-    border: 1.5px solid #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.16);
   }
 
   ::-webkit-scrollbar-track {
     border-radius: 10px;
-    background-color: #ffffff;
   }
 
 }

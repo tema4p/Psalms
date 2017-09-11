@@ -25,23 +25,30 @@ export class Psalm {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!this.settings) return;
-    let source;
+    let source, source2;
     if (this.settings.textSource === 'ru') {
       source = (<any>window).psalmRuJson;
     } else if (this.settings.textSource === 'cs') {
       source = (<any>window).psalmCsJson;
     }
 
+    if (this.settings.textSource2 === 'ru') {
+      source2 = (<any>window).psalmRuJson;
+    } else if (this.settings.textSource2 === 'sn') {
+      source2 = (<any>window).psalmSnJson;
+    }
+
     this.psalm = source[this.psalmNumber];
     this.strings = this.psalm.strings;
 
-    this.psalm2 = (<any>window).psalmRuJson[this.psalmNumber];
-    this.strings2 = this.psalm2.strings;
-
-    _.each(this.strings, (item: any, index: number) => {
-      item.v2 = this.strings2[index].v;
-      item.n2 = this.strings2[index].n;
-    });
-    console.log('this.strings', this.strings);
+    if (source2) {
+      this.psalm2 = source2[this.psalmNumber];
+      this.strings2 = this.psalm2.strings;
+      _.each(this.strings, (item: any, index: number) => {
+        if (!this.strings2[index]) return;
+        item.v2 = this.strings2[index].v;
+        item.n2 = this.strings2[index].n;
+      });
+    }
   }
 }
