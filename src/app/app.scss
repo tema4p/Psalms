@@ -18,7 +18,7 @@
 @font-face {
   font-family: Irmologion; /* имя шрифта для CSS правил */
   src: local("Irmologion"), /* проверяем наличие шрифта в ОС пользователя */
-  url(../assets/fonts/IrmIEUcs.ttf); /* если шрифт не установлен, тогда загружаем его по указанному пути */
+  url(../assets/IrmIEUcs.ttf); /* если шрифт не установлен, тогда загружаем его по указанному пути */
 }
 
 .irmologion {

@@ -15,7 +15,6 @@ import {SinodPage} from "../../pages/sinod/sinod";
       <button ion-item (click)="setPsalmFavorite()" *ngIf="!isMarked()">Добавить в избранное</button>
       <button ion-item (click)="setPsalmFavorite()" *ngIf="isMarked()">Удалить из избарнного</button>
       <button ion-item (click)="goPsalmSn()">Синодальный перевод</button>
-      <button ion-item (click)="paralSn()">Параллельный синод. перевод</button>
     </ion-list>
   `
 })
