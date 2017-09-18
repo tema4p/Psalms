@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser'
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { NeedsPage } from '../pages/needs/needs';
 import { SlovarPage } from '../pages/slovar/slovar';
 import { PageView } from '../pages/page-view/page-view';
 import { SettingsPage } from '../pages/settings/settings';
@@ -30,6 +31,7 @@ export class SafeHtmlPipe implements PipeTransform  {
   declarations: [
     MyApp,
     HomePage,
+    NeedsPage,
     SettingsPage,
     SinodPage,
     PageView,
@@ -49,6 +51,7 @@ export class SafeHtmlPipe implements PipeTransform  {
   entryComponents: [
     MyApp,
     HomePage,
+    NeedsPage,
     SettingsPage,
     SinodPage,
     PageView,

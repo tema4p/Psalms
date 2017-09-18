@@ -224,24 +224,13 @@ export class PageView {
   }
 
   goPsalm(psalm: string) {
-    console.log('psalm', psalm);
-    console.log({
+    this.navCtrl.push(PageView, {
       item: {
         'psalm': psalm,
         'ru': 'Псалом ' + (+psalm),
         'cs': 'Псалом ' + (+psalm)
       },
-      isFavorite: true,
-      component: PageView,
-      note: ''
-    });
-    this.navCtrl.setRoot(PageView, {
-      item: {
-        'psalm': psalm,
-        'ru': 'Псалом ' + (+psalm),
-        'cs': 'Псалом ' + (+psalm)
-      },
-      isFavorite: true,
+      isFavorite: this.navParams.data.isFavorite,
       component: PageView,
       note: ''
     });

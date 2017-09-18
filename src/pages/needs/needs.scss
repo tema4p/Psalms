@@ -1,0 +1,16 @@
+page-needs {
+  ion-content .scroll-content {
+    padding: 10px;
+    li {
+      padding: 4px;
+      line-height: 150%;
+    }
+    a {
+      font-weight: bold;
+      font-size: 110%;
+      border: 1px solid gray;
+      border-radius: 4px;
+      padding: 2px 5px;
+    }
+  }
+}

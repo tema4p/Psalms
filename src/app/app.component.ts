@@ -10,6 +10,7 @@ import { SlovarPage } from '../pages/slovar/slovar';
 import { Contents } from '../content/contents';
 import { SettingsService } from './services/settingsService';
 import { RateService } from './services/rateService';
+import { NeedsPage } from "../pages/needs/needs";
 
 @Component({
   templateUrl: 'app.html',
@@ -104,5 +105,9 @@ export class MyApp {
 
   openSlovar(): void {
     this.nav.setRoot(SlovarPage);
+  }
+
+  openNeeds(): void {
+    this.nav.setRoot(NeedsPage);
   }
 }
