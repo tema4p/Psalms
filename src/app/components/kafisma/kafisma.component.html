@@ -4,6 +4,7 @@
 
   <!-- Psalms 1-->
   <psalm [psalmNumber]="psalm"
+         [psalmPart]="0"
          *ngFor="let psalm of kafisma.psalm1"
          [settings]="settings">
   </psalm>
@@ -18,6 +19,7 @@
 
   <!-- Psalms 2-->
   <psalm [psalmNumber]="psalm"
+         [psalmPart]="1"
          *ngFor="let psalm of kafisma.psalm2"
          [settings]="settings">
   </psalm>
@@ -32,6 +34,7 @@
 
   <!-- Psalms 3 -->
   <psalm [psalmNumber]="psalm"
+         [psalmPart]="2"
          *ngFor="let psalm of kafisma.psalm3"
          [settings]="settings">
   </psalm>

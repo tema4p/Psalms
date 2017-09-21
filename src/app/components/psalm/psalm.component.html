@@ -1,13 +1,14 @@
 <div *ngIf="psalm && psalm.id">
 
-<p class="namepsal" psalm [attr.psalmId]="psalm.id">
+<p class="namepsal" psalm [attr.psalmId]="psalm.id"
+   *ngIf="!psalmPart">
   <span *ngIf="psalm.id != 151">
     Псалом <span class="forceRu">{{psalm.id}}</span>
   </span>
 </p>
 
-
-<p psalm [attr.psalmId]="psalm.id">
+<p psalm [attr.psalmId]="psalm.id"
+   *ngIf="!psalmPart">
   <span *ngIf="psalm.strings[0]" [innerHTML]="psalm.strings[0].v | safeHtml"></span>
 </p>
 
