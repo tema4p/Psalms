@@ -58,6 +58,11 @@ export class Psalm {
         item.v2 = this.strings2[index].v;
         item.n2 = this.strings2[index].n;
       });
+
+    } else {
+      _.each(this.strings, (item: any) => {
+        item.v2 = item.n2 = undefined;
+      });
     }
   }
 }

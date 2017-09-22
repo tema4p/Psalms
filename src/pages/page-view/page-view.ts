@@ -380,6 +380,10 @@ export class PageView {
     this.kafisma = id;
     this.page = 0;
     this.loadContent();
+    setTimeout(() => {
+      let $el = $(this.viewElement.nativeElement).find('.scroll-content:first');
+      $el.animate({ scrollTop: 0 }, 200);
+    });
   }
 
   updateTitle() {
