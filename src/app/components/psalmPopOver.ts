@@ -14,7 +14,6 @@ import {SinodPage} from "../../pages/sinod/sinod";
       <ion-list-header>{{title}}</ion-list-header>
       <button ion-item (click)="setPsalmFavorite()" *ngIf="!isMarked()">Добавить в избранное</button>
       <button ion-item (click)="setPsalmFavorite()" *ngIf="isMarked()">Удалить из избарнного</button>
-      <button ion-item (click)="goPsalmSn()">Синодальный перевод</button>
     </ion-list>
   `
 })

@@ -45,10 +45,6 @@ export class PageView {
   public forceTitleRu: boolean = false;
 
   public data: any = {
-    psalm: {
-      cs: (<any> window).psalmCs,
-      ru: (<any> window).psalmRu,
-    },
     adds: {
       cs: (<any> window).addsCs,
       ru: (<any> window).addsRu,
@@ -241,15 +237,6 @@ export class PageView {
       return;
     }
     let el = $('<div></div>').html(this.content);
-    // if (this.settings.adds) {
-    //   el.find('.trisv').html(this.data.adds['ru']['trisv'].data);
-    //   el.find('.slava').html(this.data.adds['ru']['slava'].data).removeClass('red').removeClass('center');
-    //   el.find('.slavaPre').html(this.data.adds['ru']['slavaPre'].data).removeClass('red').removeClass('center');
-    // }
-    // if (this.settings.repose) {
-    //   el.find('.slava').html(this.data.adds['ru']['repose'].data).removeClass('red').removeClass('center');
-    //   el.find('.trop-normal').html(this.data.adds['ru']['reposeM'].data);
-    // }
     this.content = el.html();
     setTimeout(() => {
       this.calculatePagesTotal();
@@ -397,62 +384,5 @@ export class PageView {
       this.title = this.navParams.data.item[this.settings.textSource];
       this.forceTitleRu = this.navParams.data.item.forceRu;
     }
-  }
-
-  public getPsalm(id: string): string {
-    if (this.settings.textSource === 'ru') {
-      if (!this.psalmsTreeRu) {
-        let cont: string = '';
-        for (let i = 1; i < 21; i++ ) {
-          cont += this.data.psalm.ru[i].data;
-        }
-        this.psalmsTreeRu = $('<div></div>').html(cont);
-      }
-
-      let $name = this.psalmsTreeRu.find('.namepsal:eq(' + (+id - 1) + ')');
-      let $title = $name.next();
-      let $psalm = this.psalmsTreeRu.find('.psal:eq(' + (+id - 1) + ')');
-
-      if (id === '118') {
-        $psalm.append(this.psalmsTreeRu.find('.psal-118:eq(0)').html());
-        $psalm.append('<br/><span class="red center sreda">&nbsp; [Среда&#769;:] &nbsp;</span><br/>');
-        $psalm.append(this.psalmsTreeRu.find('.psal-118:eq(1)').html());
-        $psalm.append(this.psalmsTreeRu.find('.psal-118:eq(2)').html());
-      }
-
-      return `
-        <p class="namepsal">${$title.html()}</p>
-        <p></p>
-        <p class="psal">${$psalm.html()}</p>
-      `;
-
-    } if (this.settings.textSource === 'cs') {
-      this.forceTitleRu = true;
-
-      if (!this.psalmsTreeCs) {
-        let cont: string = '';
-        for (let i = 1; i < 21; i++ ) {
-          cont += this.data.psalm.cs[i].data;
-        }
-        this.psalmsTreeCs = $('<div></div>').html(cont);
-      }
-
-      let $title = this.psalmsTreeCs.find('#psalom' + id);
-      let $psalm = $title.next();
-
-      if (id === '118') {
-        $psalm.append(this.psalmsTreeCs.find('.psal-118:eq(0)').html());
-        $psalm.append('<br/><span class="red center sreda">Среда&#769;:</span>');
-        $psalm.append(this.psalmsTreeCs.find('.psal-118:eq(1)').html());
-        $psalm.append(this.psalmsTreeCs.find('.psal-118:eq(2)').html());
-      }
-
-      return `
-        <p class="namepsal">${$title.html()}</p>
-        <p></p>
-        <p class="psal">${$psalm.html()}</p>
-      `;
-    }
-
   }
 }
