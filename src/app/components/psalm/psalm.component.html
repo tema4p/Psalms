@@ -7,9 +7,10 @@
   </span>
 </p>
 
-<p psalm [attr.psalmId]="psalm.id"
-   *ngIf="!(psalmPart > 0 && psalm.id == 118)">
+  <!-- 118 заголовок -->
+<p psalm [attr.psalmId]="psalm.id" *ngIf="!(psalmPart > 0 && psalm.id == 118)">
   <span *ngIf="psalm.strings[0]" [innerHTML]="psalm.strings[0].v | safeHtml"></span>
+  <span *ngIf="psalm.strings[1] && psalm.strings[1].t" [innerHTML]="psalm.strings[1].v | safeHtml"></span>
 </p>
 
 <p class="psal">
