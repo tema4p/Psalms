@@ -1,4 +1,6 @@
 import {Component, Input, SimpleChanges} from '@angular/core';
+import endsRu from "../../data/ends-ru-json";
+import endsCs from "../../data/ends-cs-json";
 declare var _: any;
 
 @Component({
@@ -17,13 +19,13 @@ export class Ends {
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-   let source: string;
+   let source: any;
 
    if (this.endId) {
       if (this.settings.textSource === 'ru') {
-        source = (<any>window).endsRu;
+        source = (new endsRu()).data;
       } else if (this.settings.textSource === 'cs') {
-        source = (<any>window).endsCs;
+        source = (new endsCs()).data;
       }
       this.data = source[this.endId].data;
     }

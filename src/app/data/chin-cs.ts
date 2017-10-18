@@ -1,4 +1,5 @@
-window.chinCs = {
+export default class chinCs {
+  public data = {
   '6p': {"data": `<p>Слaва въ вhшнихъ бGу, и3 на земли2 ми1ръ, въ человёцэхъ бlговолeніе. <span class="emphasis">(Три1жды.)</span></p>
   <p>ГDи, ўстнЁ мои2 tвeрзеши, и3 ўстA мо‰ возвэстsтъ хвалY твою2. <span class="emphasis">(Два1жды)</span>.</p>
   
@@ -194,4 +195,4 @@ window.chinCs = {
 <p class="emphasis forceRu">
   И обычные исходные поклоны.</p>
 `}
-};
+}};

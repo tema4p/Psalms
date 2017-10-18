@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import slovar from "../../app/data/slovar";
 declare var _:any;
 
 @Component({
@@ -12,7 +13,7 @@ export class SlovarPage {
   public limit: number = 40;
   public start: number = 0;
 
-  private source: any[] = (<any> window).slovar.words;
+  private source: any[] = (new slovar()).data.words;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     _.each(this.source, (item) => {
       item.wordLower = item.word.toLowerCase()

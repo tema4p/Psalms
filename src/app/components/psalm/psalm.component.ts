@@ -1,4 +1,7 @@
 import {Component, Input, SimpleChanges} from '@angular/core';
+import psalmRuJson from "../../data/psalm-ru-json";
+import psalmCsJson from "../../data/psalm-cs-json";
+import psalmSnJson from "../../data/psalm-sn-json";
 declare var _: any;
 
 @Component({
@@ -27,15 +30,15 @@ export class Psalm {
     if (!this.settings) return;
     let source, source2;
     if (this.settings.textSource === 'ru') {
-      source = (<any>window).psalmRuJson;
+      source = (new psalmRuJson()).data;
     } else if (this.settings.textSource === 'cs') {
-      source = (<any>window).psalmCsJson;
+      source = (new psalmCsJson()).data;
     }
 
     if (this.settings.textSource2 === 'ru') {
-      source2 = (<any>window).psalmRuJson;
+      source2 = (new psalmRuJson()).data;
     } else if (this.settings.textSource2 === 'sn') {
-      source2 = (<any>window).psalmSnJson;
+      source2 = (new psalmSnJson()).data;
     }
 
     this.psalm = source[this.psalmNumber];

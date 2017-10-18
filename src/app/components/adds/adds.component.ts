@@ -1,4 +1,7 @@
 import {Component, Input, SimpleChanges} from '@angular/core';
+import addsCs from "../../data/adds-cs";
+import addsRu from "../../data/adds-ru";
+
 declare var _: any;
 
 @Component({
@@ -17,14 +20,14 @@ export class Adds {
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    let source: string;
+    let source: any;
 
     if (this.addsId) {
       let add: string = this.addsId;
       if (this.settings.textSource === 'ru') {
-        source = (<any>window).addsRu;
+        source = (new addsRu()).data;
       } else if (this.settings.textSource === 'cs') {
-        source = (<any>window).addsCs;
+        source = (new addsCs()).data;
       }
       if (this.addsId === 'slava') {
         if (this.settings.repose) {

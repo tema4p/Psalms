@@ -1,5 +1,5 @@
-window.psalmSnJson = {
-  '1': {
+export default class psalmSnJson {
+  public data = {  '1': {
     id: '1',
     strings: [
       {n: 0, t: 1, v: "Псалом Давида."},
@@ -3372,4 +3372,4 @@ window.psalmSnJson = {
       {n: 7, v: 'Но я, исторгнув у него меч, обезглавил его и избавил сынов Израилевых от поношения.]'},
     ]
   }
-}
+}}

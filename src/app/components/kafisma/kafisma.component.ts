@@ -1,4 +1,7 @@
 import {Component, Input, SimpleChanges} from '@angular/core';
+import kafismaRuJson from "../../data/kafisma-ru-json";
+import endsRu from "../../data/ends-ru-json";
+import endsCs from "../../data/ends-cs-json";
 declare var _: any;
 
 @Component({
@@ -21,7 +24,7 @@ export class Kafisma {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.kafismaNumber) {
-      this.kafisma = (<any>window).kafismaRuJson[this.kafismaNumber];
+      this.kafisma = (new kafismaRuJson()).data[this.kafismaNumber];
     }
     this.fetchKafismaEnd();
 
@@ -30,9 +33,9 @@ export class Kafisma {
   fetchKafismaEnd(): void {
     let source: any;
     if (this.settings.textSource === 'ru') {
-      source = (<any>window).endsRu;
+      source = (new endsRu()).data;
     } else if (this.settings.textSource === 'cs') {
-      source = (<any>window).endsCs;
+      source = (new endsCs()).data;
     }
     this.kafismaEnd = source[this.kafismaNumber];
   }

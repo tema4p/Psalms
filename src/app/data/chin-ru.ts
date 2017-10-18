@@ -1,5 +1,5 @@
-window.chinRu = {
-  '6p': {"data": `
+export default class chinRu {
+  public data = {  '6p': {"data": `
   <h3>Шестопсалмие</h3>
 
 
@@ -355,4 +355,4 @@ window.chinRu = {
   <p class="emphasis">И обычные исходные поклоны.</p>
 
   `}
-};
+}};

@@ -6,6 +6,11 @@ import { SettingsService } from '../../app/services/settingsService';
 import { PopoverController } from 'ionic-angular';
 import { PsalmPopover } from '../../app/components/psalmPopOver';
 import { Contents } from '../../content/contents';
+import addsCs from "../../app/data/adds-cs";
+import addsRu from "../../app/data/adds-ru";
+import chinRu from "../../app/data/chin-ru";
+import chinCs from "../../app/data/chin-cs";
+import psalmRuJson from "../../app/data/psalm-ru-json";
 
 declare var $: any;
 declare var _:any;
@@ -46,18 +51,18 @@ export class PageView {
 
   public data: any = {
     adds: {
-      cs: (<any> window).addsCs,
-      ru: (<any> window).addsRu,
+      cs: (new addsCs()).data,
+      ru: (new addsRu()).data,
     },
     chin: {
-      cs: (<any> window).chinCs,
-      ru: (<any> window).chinRu,
+      cs: (new chinCs()).data,
+      ru: (new chinRu()).data,
     }
   };
 
   public dataJson: any = {
     psalm: {
-      ru: (<any> window).psalmRuJson,
+      ru: (new psalmRuJson()).data
     }
   };
 
