@@ -49,6 +49,7 @@ export class MyApp {
     }
 
     this.pages.push({ item: other['end'], component: PageView });
+    this.pages.push({ item: other['songs'], component: PageView });
     this.pages.push({ item: other['posled'], component: PageView });
     this.pages.push({ item: other['pomannik'], component: PageView });
     this.pages.push({ item: other['info'], component: PageView });

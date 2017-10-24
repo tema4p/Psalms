@@ -30,7 +30,8 @@ const otherList: any = {
     'pomannik':{'add': 'pomannik','ru': false, 'cs': 'Помsнникъ'},
     'info':    {'add': 'info',    'ru': 'О псалмопении', 'cs': false},
     '6p':      {'chin': '6p',     'ru': 'Шестопсалмие', 'cs': 'Шестопсалмие', 'forceRu': true},
-    '12p':     {'chin': '12p',    'ru': 'Чин чтения 12-ти псалмов', 'cs': 'Чин чтения 12-ти псалмов', 'forceRu': true}
+    '12p':     {'chin': '12p',    'ru': 'Чин чтения 12-ти псалмов', 'cs': 'Чин чтения 12-ти псалмов', 'forceRu': true},
+    'songs':   {'songs': 'songs', 'ru': 'Песни Священного Писания', 'cs': 'Пэ~сни свzще~ннагw писа~ніz.'}
 };
 
 export class Contents {

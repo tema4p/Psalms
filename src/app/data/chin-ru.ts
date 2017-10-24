@@ -1,8 +1,6 @@
 export default class chinRu {
-  public data = {  '6p': {"data": `
+public data = {  '6p': {"data": `
   <h3>Шестопсалмие</h3>
-
-
   <p>Слава в вышних Богу, и на земли мир, в человецех благоволение. <span class="emphasis">(Трижды)</span></p>
   <p>Господи, устне мои отверзеши, и уста моя возвестят хвалу Твою. <span class="emphasis">(Дважды)</span></p>
 

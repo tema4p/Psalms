@@ -11,10 +11,12 @@ import addsRu from "../../app/data/adds-ru";
 import chinRu from "../../app/data/chin-ru";
 import chinCs from "../../app/data/chin-cs";
 import psalmRuJson from "../../app/data/psalm-ru-json";
+import songsCs from "../../app/data/songs-cs";
+import songsRu from "../../app/data/songs-ru";
 
-declare var $: any;
-declare var _:any;
-declare var moment:any;
+declare let $: any;
+declare let _:any;
+declare let moment:any;
 /**
  * Generated class for the PageView page.
  *
@@ -57,6 +59,10 @@ export class PageView {
     chin: {
       cs: (new chinCs()).data,
       ru: (new chinRu()).data,
+    },
+    songs: {
+      cs: (new songsCs()).data,
+      ru: (new songsRu()).data,
     }
   };
 
@@ -215,12 +221,13 @@ export class PageView {
       }
     } else if (this.navParams.data.item.chin) {
       this.content = this.data.chin[this.settings.textSource][this.navParams.data.item.chin].data;
+    } else if (this.navParams.data.item.songs) {
+      this.content = this.data.songs[this.settings.textSource];
     }
 
     this.updateTitle();
     this.checkExtends();
 
-    console.log('this.page');
     if (this.page > 0) this.goPage(this.page);
   }
 
