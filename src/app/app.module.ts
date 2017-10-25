@@ -11,6 +11,7 @@ import { PageView } from '../pages/page-view/page-view';
 import { SettingsPage } from '../pages/settings/settings';
 import { SinodPage } from '../pages/sinod/sinod';
 
+import { AndroidFullScreen } from '@ionic-native/android-full-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { PsalmPopover } from './components/psalmPopOver'
@@ -63,6 +64,7 @@ export class SafeHtmlPipe implements PipeTransform  {
     Psalm
   ],
   providers: [
+    AndroidFullScreen,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

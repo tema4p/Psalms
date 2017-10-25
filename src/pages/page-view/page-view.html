@@ -75,6 +75,13 @@
 
 
 
+    <div *ngIf="kafismaJson" class="psalms-list">
+      Псалмы:
+      <a *ngFor="let psalm of kafismaJson.psalm1" (click)="goToPsalm(psalm)" class="forceRu psalm-link">{{psalm}}</a>&nbsp;
+      <a *ngFor="let psalm of kafismaJson.psalm2" (click)="goToPsalm(psalm)" class="forceRu psalm-link">{{psalm}}</a>&nbsp;
+      <a *ngFor="let psalm of kafismaJson.psalm3" (click)="goToPsalm(psalm)" class="forceRu psalm-link">{{psalm}}</a>
+    </div>
+
     <kafisma *ngIf="kafisma" [kafismaNumber]="kafisma"
              [settings]="settingsService.settings">
     </kafisma>

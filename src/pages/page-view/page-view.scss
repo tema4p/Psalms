@@ -326,6 +326,20 @@ page-page-view, page-sinod {
       color: #413dff;
     }
   }
+  .psalms-list {
+    text-align: center;
+    line-height: 150%;
+
+    .psalm-link {
+      font-weight: bold;
+      font-size: 80%;
+      border: 1px solid gray;
+      border-radius: 4px;
+      padding: 2px 6px;
+      margin: 2px;
+      text-align: center;
+    }
+  }
 }
 
 
@@ -355,7 +369,6 @@ page-page-view, page-sinod {
   ::-webkit-scrollbar-track {
     border-radius: 10px;
   }
-
 }
 
 .songs {

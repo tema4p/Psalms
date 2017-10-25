@@ -1,4 +1,6 @@
 import {Injectable} from '@angular/core';
+import {StatusBar} from "@ionic-native/status-bar";
+import { AndroidFullScreen } from '@ionic-native/android-full-screen';
 
 declare let _: any;
 declare let $: any;
@@ -42,16 +44,21 @@ export class SettingsService {
     justify: true,
     repose: false,
     adds: true,
+    fullscreen: false,
     bookMode: true,
     bookmarks: [],
     history: [],
     psalms: []
   };
 
-  constructor() {
+  constructor(
+    public statusBar: StatusBar,
+    private androidFullScreen: AndroidFullScreen
+  ) {
     this.loadSettings();
     console.log('SettingsService init');
     this.updateTheme();
+    this.updateStatusBar();
   }
 
   saveSettings(settings: any): any {
@@ -59,6 +66,7 @@ export class SettingsService {
     localStorage['settings'] = JSON.stringify(this.settings);
     console.log('SaveSettings', this.settings);
     this.updateTheme();
+    this.updateStatusBar();
   }
 
   loadSettings(): any {
@@ -82,5 +90,17 @@ export class SettingsService {
     $('body')
       .toggleClass('night', this.settings.theme === 'night')
       .toggleClass('normal', this.settings.theme === 'normal');
+  }
+
+  updateStatusBar(): void {
+    if (this.settings.fullscreen) {
+      this.androidFullScreen.isImmersiveModeSupported()
+        .then(() => this.androidFullScreen.immersiveMode())
+        .catch((error: any) => console.log(error));
+    } else {
+      this.androidFullScreen.isImmersiveModeSupported()
+        .then(() => this.androidFullScreen.showSystemUI())
+        .catch((error: any) => console.log(error));
+    }
   }
 }

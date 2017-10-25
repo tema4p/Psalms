@@ -13,6 +13,7 @@ import chinCs from "../../app/data/chin-cs";
 import psalmRuJson from "../../app/data/psalm-ru-json";
 import songsCs from "../../app/data/songs-cs";
 import songsRu from "../../app/data/songs-ru";
+import kafismaRuJson from "../../app/data/kafisma-ru-json";
 
 declare let $: any;
 declare let _:any;
@@ -43,6 +44,7 @@ export class PageView {
   public psalmsTreeRu: any;
   public psalmsTreeCs: any;
   public kafisma: string;
+  public kafismaJson: any;
 
   public prevPsalm: string;
   public nextPsalm: string;
@@ -90,7 +92,7 @@ export class PageView {
     console.log('ionViewWillEnter');
     this.initContent();
     this.kafisma = this.navParams.data.item.kafisma;
-
+    this.kafismaJson = (new kafismaRuJson()).data[this.kafisma];
     console.log('this.navParams.data', this.navParams.data);
     if (this.navParams.data.page) {
       this.page = this.navParams.data.page;
@@ -377,6 +379,7 @@ export class PageView {
   public goKafisma(id: string): void {
     console.log('goKafisma', id);
     this.kafisma = id;
+    this.kafismaJson = (new kafismaRuJson()).data[this.kafisma];
     this.page = 0;
     this.loadContent();
     setTimeout(() => {
@@ -395,6 +398,19 @@ export class PageView {
     } else {
       this.title = this.navParams.data.item[this.settings.textSource];
       this.forceTitleRu = this.navParams.data.item.forceRu;
+    }
+  }
+
+
+  goToPsalm(psalm): void {
+    let $target: any = $(`[psalmid="${psalm}"]`)[0];
+
+    if (!this.settings.bookMode) {
+      let $el: any = $('.scroll-content');
+      $el.animate({ scrollTop: $target.offsetTop - 15 }, 300);
+    } else {
+      let page = Math.floor($target.offsetLeft / ($target.offsetWidth + 10));
+      this.goPage(page);
     }
   }
 }
