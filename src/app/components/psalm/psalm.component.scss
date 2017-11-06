@@ -7,7 +7,8 @@
 }
 
 .extraSpace {
-  padding: 2px 0;
+  padding: 4px 0;
+  display: inline-block;
 }
 
 .line {
@@ -17,5 +18,11 @@
   }
   span:first-child {
     padding-right: 4px;
+  }
+}
+
+.csTranslated {
+  .translate {
+    font-size: 90%;
   }
 }

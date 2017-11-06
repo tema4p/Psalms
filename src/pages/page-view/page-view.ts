@@ -84,6 +84,7 @@ export class PageView {
               private chRef: ChangeDetectorRef,
               public popoverCtrl: PopoverController) {
     this.settings = this.settingsService.getSettings();
+    this.registerNativeButtons();
   }
 
 
@@ -104,7 +105,9 @@ export class PageView {
       this.calculatePagesTotal();
       this.chRef.detectChanges();
     }, 400);
+  }
 
+  registerNativeButtons() {
     let $el = $(this.viewElement.nativeElement).find('.scroll-content:first');
 
     document.addEventListener("volumeupbutton", () => {

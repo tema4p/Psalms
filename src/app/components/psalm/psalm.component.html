@@ -13,9 +13,11 @@
   <span *ngIf="psalm.strings[1] && psalm.strings[1].t" [innerHTML]="psalm.strings[1].v | safeHtml"></span>
 </p>
 
-<p class="psal">
+
+<p class="psal"
+   [ngClass]="{'csTranslated': settings.textSource === 'cs' && settings.textSource2 != 0}">
   <span *ngFor="let s of strings"
-        [ngClass]="{'extraSpace': settings.extraSpace, 'isTitle': s.t, 'line': settings.translateOrientation !== 'horizontal'}">
+        [ngClass]="{'extraSpace': settings.extraSpace && settings.perenos, 'isTitle': s.t, 'line': settings.translateOrientation !== 'horizontal'}">
     <span *ngIf="!s.t">
       <i>{{s.i || s.n}}</i><span [innerHTML]="s.v | safeHtml"></span><br/>
     </span>
