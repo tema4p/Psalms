@@ -87,7 +87,7 @@ export class HomePage {
   }
 
   removeBookmark(page): void {
-    this.settings.bookmarks = _.without(this.settings.bookmarks, page.item.kafisma);
+    this.settings.bookmarks = _.without(this.settings.bookmarks, +page.item.kafisma);
     this.settingsService.saveSettings(this.settings);
     let toast = this.toastCtrl.create({
       message: `Кафизма ${+page.item.kafisma} убрана из закладок.`,

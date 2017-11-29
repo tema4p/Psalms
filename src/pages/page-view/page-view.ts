@@ -267,7 +267,7 @@ export class PageView {
 
   setBookMark(): void {
     if (!this.isMarked()) {
-      this.settings.bookmarks.push(this.kafisma);
+      this.settings.bookmarks.push(+this.kafisma);
       this.settings.bookmarks = _.sortBy(this.settings.bookmarks);
       this.settingsService.saveSettings(this.settings);
       let toast = this.toastCtrl.create({
@@ -276,7 +276,7 @@ export class PageView {
       });
       toast.present();
     } else {
-      this.settings.bookmarks = _.without(this.settings.bookmarks, this.kafisma);
+      this.settings.bookmarks = _.without(this.settings.bookmarks, +this.kafisma);
       this.settingsService.saveSettings(this.settings);
       let toast = this.toastCtrl.create({
         message: `Кафизма ${+this.kafisma} убрана из закладок.`,
@@ -291,9 +291,9 @@ export class PageView {
     if (!this.kafisma) return;
 
     let last = this.settings.history[this.settings.history.length - 1];
-    if (!last || (this.kafisma && last.kafisma !== this.kafisma)) {
+    if (!last || (+this.kafisma && +last.kafisma !== +this.kafisma)) {
       this.settings.history.push({
-        kafisma: this.kafisma,
+        kafisma: +this.kafisma,
         date: moment().toISOString(),
         page: this.page,
         scroll: 0
@@ -303,7 +303,7 @@ export class PageView {
       }
       console.log('this.settings.history', this.settings.history);
       this.settingsService.saveSettings(this.settings);
-    } else if (last.kafisma === this.kafisma) {
+    } else if (+last.kafisma === +this.kafisma) {
       last.date = moment().toISOString();
       last.page = this.page;
       last.scroll = 0;
@@ -312,7 +312,7 @@ export class PageView {
   }
 
   isMarked(): boolean {
-    return this.settings.bookmarks.indexOf(this.kafisma) !== -1;
+    return this.settings.bookmarks.indexOf(+this.kafisma) !== -1;
   }
 
   public getTranslateX(): string {
