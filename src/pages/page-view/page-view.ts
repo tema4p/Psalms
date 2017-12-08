@@ -237,6 +237,7 @@ export class PageView {
   }
 
   goPsalm(psalm: string) {
+    this.navCtrl.popToRoot();
     this.navCtrl.push(PageView, {
       item: {
         'psalm': psalm,
@@ -256,8 +257,10 @@ export class PageView {
     let el = $('<div></div>').html(this.content);
     this.content = el.html();
     setTimeout(() => {
-      this.calculatePagesTotal();
-      this.chRef.detectChanges();
+      if (this && this.chRef) {
+        this.calculatePagesTotal();
+        this.chRef.detectChanges();
+      }
     })
   }
 

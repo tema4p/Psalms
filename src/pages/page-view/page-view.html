@@ -139,7 +139,7 @@
 
 
 
-  <div class="pages-info" [ngClass]="{'hidden': (!enableInfo)}" *ngIf="settings.bookMode">
+  <div class="pages-info" [ngClass]="{'hidden': (!enableInfo)}" *ngIf="settings.bookMode && pagesTotal > 0">
     <button ion-button icon-only [clear]="true"
             class="forceRu"
             [ngClass]="{'disabled': (page === 0)}"
