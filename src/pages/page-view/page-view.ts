@@ -83,6 +83,7 @@ export class PageView {
               private viewElement: ElementRef,
               private chRef: ChangeDetectorRef,
               public popoverCtrl: PopoverController) {
+    (<any>screen).orientation.unlock();
     this.settings = this.settingsService.getSettings();
     this.registerNativeButtons();
   }
@@ -168,6 +169,7 @@ export class PageView {
   ngOnDestroy() {
     console.log('ngOnDestroy');
     window.removeEventListener("orientationchange", this.rotationHandler);
+    (<any>screen).orientation.removeEventListener("change", this.rotationHandler);
     if (this.hideInfoTimeOut) clearTimeout(this.hideInfoTimeOut);
   }
 
@@ -201,6 +203,7 @@ export class PageView {
       }, 400);
     });
     window.addEventListener("orientationchange", this.rotationHandler, false);
+    (<any>screen).orientation.addEventListener('change', this.rotationHandler);
   }
 
   loadContent() {

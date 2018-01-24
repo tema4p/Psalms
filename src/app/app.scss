@@ -46,6 +46,12 @@ $bg1: #544039;
 $bg2: #231e1a;
 $font1: #f3eae3;
 
+button {
+  &:focus {
+    box-shadow: inset 1px 1px 15px rgba(234, 219, 219, 0.51);
+  }
+}
+
 .night {
   .toolbar-title, .bar-button {
     color: $font1;

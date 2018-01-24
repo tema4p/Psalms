@@ -171,11 +171,13 @@ page-page-view, page-sinod {
   .bookMode {
     height: 100%;
     column-gap: 20px;
+    column-width: 100vw; // !fallback
     column-width: calc(100vw - 100px);
     transform: translate3d(0, 0, 0);
     transition: transform 500ms;
     margin: 0;
     will-change: transform;
+    overflow-scrolling: initial;
   }
 
   .horizontalScroll {
@@ -189,6 +191,7 @@ page-page-view, page-sinod {
 
   .landscape {
     .bookMode {
+      column-width: 40vw; //fallback
       column-width: calc(50vw - 50px);
     }
   }
@@ -342,6 +345,18 @@ page-page-view, page-sinod {
   }
 }
 
+.night {
+  .psalm-link {
+    color: #c3a993;
+  }
+}
+
+.contentBook {
+  .scroll-content {
+    overflow: hidden;
+    overflow-scrolling: initial;
+  }
+}
 
 .forceScrollBar {
   #contentContainer {
