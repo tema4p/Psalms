@@ -98,6 +98,8 @@ export class PageView {
     console.log('this.navParams.data', this.navParams.data);
     if (this.navParams.data.page || !this.page) {
       this.page = this.navParams.data.page;
+    } else {
+      this.page = 0;
     }
   }
 
@@ -366,6 +368,7 @@ export class PageView {
       this.page = 0;
       return;
     }
+    this.page = this.page || 0;
     // let pages = this.container.scrollWidth / window.screen.availWidth;
     let pages: number;
 
