@@ -93,10 +93,10 @@ export class PageView {
   ionViewWillEnter() {
     console.log('ionViewWillEnter');
     this.initContent();
-    this.kafisma = this.navParams.data.item.kafisma;
+    this.kafisma = this.kafisma || this.navParams.data.item.kafisma;
     this.kafismaJson = (new kafismaRuJson()).data[this.kafisma];
     console.log('this.navParams.data', this.navParams.data);
-    if (this.navParams.data.page) {
+    if (this.navParams.data.page || !this.page) {
       this.page = this.navParams.data.page;
     }
   }

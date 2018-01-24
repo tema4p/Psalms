@@ -8,7 +8,7 @@ declare var window:any;
 export class RateService {
     public rate: any;
     public rateLink: string;
-    constructor(public alertCtrl: AlertController ,
+    constructor(public alertCtrl: AlertController,
                 platform: Platform) {
         console.log('RateService init');
         if (platform.is('ios')) {

@@ -26,12 +26,13 @@
 </ion-header>
 
 
-<ion-content padding [ngClass]="[settings.theme, (isLandscape ? 'landscape' : ''), (!settings.bookMode ? 'forceScrollBar' : 'contentBook')]">
+<ion-content padding
+             [ngStyle]="{background: settings.isCustomColor ? settings.customColor : ''}"
+             [ngClass]="[settings.theme, (isLandscape ? 'landscape' : ''), (!settings.bookMode ? 'forceScrollBar' : 'contentBook')]">
 
   <div id="contentContainer"
        (swipeleft)="goPage(page + 1)"
        (swiperight)="goPage(page - 1)"
-
        [ngClass]="{'irmologion' : (settings.textSource === 'cs'),
                    'noPerenos':(!settings.perenos),
                    'hyphens':  (settings.hyphens),

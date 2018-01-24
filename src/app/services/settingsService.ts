@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {StatusBar} from "@ionic-native/status-bar";
 import { AndroidFullScreen } from '@ionic-native/android-full-screen';
+import {Platform} from "ionic-angular";
 
 declare let _: any;
 declare let $: any;
@@ -38,6 +39,8 @@ export class SettingsService {
     translateOrientation: 'horizontal',
     lineHeight: 120,
     theme: 'normal',
+    isCustomColor: false,
+    customColor: '#FFFDF0',
     perenos: false,
     extraSpace: false,
     hyphens: true,
@@ -53,7 +56,8 @@ export class SettingsService {
 
   constructor(
     public statusBar: StatusBar,
-    private androidFullScreen: AndroidFullScreen
+    private androidFullScreen: AndroidFullScreen,
+    public platform: Platform
   ) {
     this.loadSettings();
     console.log('SettingsService init');
@@ -63,6 +67,8 @@ export class SettingsService {
 
   saveSettings(settings: any): any {
     this.settings = settings;
+    this.fixAndroidCsJustify();
+
     localStorage['settings'] = JSON.stringify(this.settings);
     console.log('SaveSettings', this.settings);
     this.updateTheme();
@@ -79,6 +85,7 @@ export class SettingsService {
   }
 
   getSettings(): any {
+    this.fixAndroidCsJustify();
     return _.clone(this.settings);
   }
 
@@ -101,6 +108,13 @@ export class SettingsService {
       this.androidFullScreen.isImmersiveModeSupported()
         .then(() => this.androidFullScreen.showSystemUI())
         .catch((error: any) => console.log(error));
+    }
+  }
+
+  fixAndroidCsJustify() {
+    if (this.platform.is('android')
+      && (this.settings.textSource === 'cs' || this.settings.textSource2 === 'cs')) {
+      this.settings.justify = false;
     }
   }
 }

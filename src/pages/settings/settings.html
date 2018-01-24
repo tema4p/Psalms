@@ -61,7 +61,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="!(platform.is('android') && (settings.textSource === 'cs' || settings.textSource2 === 'cs'))">
       <ion-label>Текст по ширине</ion-label>
       <ion-checkbox [(ngModel)]="settings.justify"></ion-checkbox>
     </ion-item>
@@ -81,7 +81,7 @@
       <ion-checkbox [(ngModel)]="settings.bookMode"></ion-checkbox>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="platform.is('android')">
       <ion-label>Полноэкранный режим</ion-label>
       <ion-checkbox [(ngModel)]="settings.fullscreen"></ion-checkbox>
     </ion-item>
@@ -103,6 +103,14 @@
       <ion-checkbox [(ngModel)]="settings.repose"></ion-checkbox>
     </ion-item>
 
+    <ion-item [ngStyle]="{background: settings.customColor}">
+      <ion-label>Выбрать цвет фона</ion-label>
+      <ion-checkbox [(ngModel)]="settings.isCustomColor"></ion-checkbox>
+    </ion-item>
   </ion-list>
+
+  <div class="color-picker" *ngIf="settings.isCustomColor">
+    <color-picker [hexColor]="settings.customColor" (colorChanged)="colorChanged($event)" ></color-picker>
+  </div>
 
 </ion-content>

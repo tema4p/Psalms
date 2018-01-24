@@ -19,6 +19,7 @@ import { Psalm } from './components/psalm/psalm.component'
 import { Adds } from './components/adds/adds.component'
 import { Kafisma } from './components/kafisma/kafisma.component';
 import { Ends } from './components/ends/ends.component';
+import { ColorPicker } from './components/colorPicker/colorPicker';
 
 @Pipe({ name: 'safeHtml'})
 export class SafeHtmlPipe implements PipeTransform  {
@@ -42,6 +43,7 @@ export class SafeHtmlPipe implements PipeTransform  {
     Kafisma,
     Adds,
     Ends,
+    ColorPicker,
     Psalm
   ],
   imports: [
@@ -61,6 +63,7 @@ export class SafeHtmlPipe implements PipeTransform  {
     Kafisma,
     Adds,
     Ends,
+    ColorPicker,
     Psalm
   ],
   providers: [
