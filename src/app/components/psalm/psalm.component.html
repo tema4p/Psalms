@@ -17,7 +17,10 @@
 <p class="psal"
    [ngClass]="{'csTranslated': settings.textSource === 'cs' && settings.textSource2 != 0}">
   <span *ngFor="let s of strings"
-        [ngClass]="{'extraSpace': settings.extraSpace && settings.perenos, 'isTitle': s.t, 'line': settings.translateOrientation !== 'horizontal'}">
+        [ngClass]="{'extraSpace': settings.extraSpace && settings.perenos,
+          'isTitle': s.t,
+          'line': (settings.translateOrientation !== 'horizontal' && settings.textSource2 !== '0')
+        }">
     <span *ngIf="!s.t">
       <i>{{s.i || s.n}}</i><span [innerHTML]="s.v | safeHtml"></span><br/>
     </span>

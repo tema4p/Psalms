@@ -72,13 +72,18 @@
     </ion-item>
 
     <ion-item *ngIf="settings.perenos">
-      <ion-label>Увеличенный интеврал между стихами</ion-label>
+      <ion-label>Увеличенный интервал между стихами</ion-label>
       <ion-checkbox [(ngModel)]="settings.extraSpace"></ion-checkbox>
     </ion-item>
 
     <ion-item>
       <ion-label>Постраничный режим</ion-label>
       <ion-checkbox [(ngModel)]="settings.bookMode"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Открывать последнее место чтения при запуске</ion-label>
+      <ion-checkbox [(ngModel)]="settings.lastPlace"></ion-checkbox>
     </ion-item>
 
     <ion-item *ngIf="platform.is('android')">

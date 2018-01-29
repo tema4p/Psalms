@@ -48,6 +48,7 @@ export class SettingsService {
     repose: false,
     adds: true,
     fullscreen: false,
+    lastPlace: true,
     bookMode: true,
     bookmarks: [],
     history: [],

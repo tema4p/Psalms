@@ -1,5 +1,5 @@
 import { Component, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
 import { SettingsPage } from '../settings/settings';
 import { ToastController } from 'ionic-angular';
 import { SettingsService } from '../../app/services/settingsService';
@@ -41,8 +41,6 @@ export class PageView {
   public enableInfo: boolean = true;
   public hideInfoTimeOut: any;
   public container: any;
-  public psalmsTreeRu: any;
-  public psalmsTreeCs: any;
   public kafisma: string;
   public kafismaJson: any;
 
@@ -50,7 +48,7 @@ export class PageView {
   public nextPsalm: string;
 
   public psalmJson: any;
-
+  public scrollTimeout: any;
   public forceTitleRu: boolean = false;
 
   public data: any = {
@@ -82,12 +80,12 @@ export class PageView {
               private toastCtrl: ToastController,
               private viewElement: ElementRef,
               private chRef: ChangeDetectorRef,
-              public popoverCtrl: PopoverController) {
+              public popoverCtrl: PopoverController,
+              public platform: Platform) {
     (<any>screen).orientation.unlock();
     this.settings = this.settingsService.getSettings();
     this.registerNativeButtons();
   }
-
 
 
   ionViewWillEnter() {
@@ -96,19 +94,43 @@ export class PageView {
     this.kafisma = this.kafisma || this.navParams.data.item.kafisma;
     this.kafismaJson = (new kafismaRuJson()).data[this.kafisma];
     console.log('this.navParams.data', this.navParams.data);
-    if (this.navParams.data.page || !this.page) {
+    if (this.navParams.data.page || this.page > 0) {
       this.page = this.navParams.data.page;
     } else {
       this.page = 0;
     }
-  }
 
-  ionViewDidEnter() {
     setTimeout(() => {
+      this.initScrollDetection();
       this.calculatePagesTotal();
       this.chRef.detectChanges();
+      this.resetScrollPosition();
     }, 400);
   }
+
+  ionViewDidEnter() {}
+
+  resetScrollPosition() {
+    console.log('+= load progress', this.navParams.data.progress);
+    console.log('+= ', $(this.viewElement.nativeElement).find('.scroll-content:first'));
+    if (!this.settings.bookMode) {
+      let curHeight: number = $(this.viewElement.nativeElement).find('.scroll-content:first')[0].scrollHeight;
+      this.scrollTo(curHeight * this.navParams.data.progress);
+    } else if (this.navParams.data.progress > 0 && this.navParams.data.page === 0) {
+      this.goPage(~~(this.pagesTotal * this.navParams.data.progress));
+    }
+  }
+
+  initScrollDetection() {
+    $(this.viewElement.nativeElement).find('.scroll-content:first').on('scroll', (e) => {
+      clearTimeout(this.scrollTimeout);
+      this.scrollTimeout = setTimeout(() => {
+        console.log('scrollTop', $(e.currentTarget) );
+        this.addHistory(e.currentTarget.scrollTop, $(e.currentTarget)[0].scrollHeight);
+      }, 1000);
+    });
+  }
+
 
   registerNativeButtons() {
     let $el = $(this.viewElement.nativeElement).find('.scroll-content:first');
@@ -120,7 +142,7 @@ export class PageView {
       } else {
         let step: number = $el.height() - 40;
         let scroll: number = $el[0].scrollTop;
-        $el.animate({ scrollTop: scroll - step }, 300);
+        this.scrollTo(scroll - step);
       }
     }, false);
     document.addEventListener("volumedownbutton", () => {
@@ -130,7 +152,7 @@ export class PageView {
       } else {
         let step: number = $el.height() - 40;
         let scroll: number = $el[0].scrollTop;
-        $el.animate({ scrollTop: scroll + step }, 300);
+        this.scrollTo(scroll + step);
       }
     }, false);
   }
@@ -294,17 +316,22 @@ export class PageView {
     }
   }
 
-  addHistory(): void {
-    console.log('addHistory');
+  addHistory(scrollPosition?: number, scrollHeight?: number): void {
+    console.log('addHistory', scrollPosition, scrollHeight);
     if (!this.kafisma) return;
-
+    let progress: number;
+    if (this.settings.bookMode) {
+      progress = this.page / this.pagesTotal;
+    } else {
+      progress = scrollPosition / scrollHeight;
+    }
     let last = this.settings.history[this.settings.history.length - 1];
     if (!last || (+this.kafisma && +last.kafisma !== +this.kafisma)) {
       this.settings.history.push({
         kafisma: +this.kafisma,
         date: moment().toISOString(),
-        page: this.page,
-        scroll: 0
+        progress: progress,
+        page: this.page
       });
       if (this.settings.history.length > 20) {
         this.settings.history = this.settings.history.slice(-20, 0);
@@ -313,10 +340,11 @@ export class PageView {
       this.settingsService.saveSettings(this.settings);
     } else if (+last.kafisma === +this.kafisma) {
       last.date = moment().toISOString();
+      last.progress = progress;
       last.page = this.page;
-      last.scroll = 0;
       this.settingsService.saveSettings(this.settings);
     }
+    console.log('save progress', progress);
   }
 
   isMarked(): boolean {
@@ -394,10 +422,12 @@ export class PageView {
     this.kafismaJson = (new kafismaRuJson()).data[this.kafisma];
     this.page = 0;
     this.loadContent();
-    setTimeout(() => {
-      let $el = $(this.viewElement.nativeElement).find('.scroll-content:first');
-      $el.animate({ scrollTop: 0 }, 200);
-    });
+    setTimeout(() => this.scrollTo(0));
+  }
+
+  public scrollTo(top: number): void {
+    let $el = $(this.viewElement.nativeElement).find('.scroll-content:first');
+    $el.animate({ scrollTop: top }, 200);
   }
 
   updateTitle() {
@@ -418,8 +448,7 @@ export class PageView {
     let $target: any = $(`[psalmid="${psalm}"]`)[0];
 
     if (!this.settings.bookMode) {
-      let $el: any = $('.scroll-content');
-      $el.animate({ scrollTop: $target.offsetTop - 15 }, 300);
+      this.scrollTo($target.offsetTop - 15);
     } else {
       let page = Math.floor($target.offsetLeft / ($target.offsetWidth + 10));
       this.goPage(page);

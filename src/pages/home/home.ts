@@ -18,7 +18,7 @@ export class HomePage {
   public settings;
   public isIntroHidden: string = '';
   public bookmarks: Array<{item: any, component: any, note: string}> = [];
-  public history: Array<{item: any, component: any, note: string, page: number, scroll: number}> = [];
+  public history: Array<{item: any, component: any, note: string, page: number, progress: number}> = [];
   public psalms: Array<{item: any, component: any, note: string, isFavorite?: boolean}> = [];
 
   constructor(public navCtrl: NavController,
@@ -28,6 +28,13 @@ export class HomePage {
     this.loadPsalms();
     this.loadHistory();
     this.isIntroHidden = localStorage['isIntroHidden'];
+  }
+
+  ionViewDidEnter(): void {
+    if (this.settingsService.settings.lastPlace && !(<any>window).justOpened) {
+      (<any>window).justOpened = true;
+      this.openPage(this.history[0]);
+    }
   }
 
   loadBookmarks(): void {
@@ -48,14 +55,15 @@ export class HomePage {
     let kafizma = Contents.getKafizmaList();
     this.history = [];
     this.settings = this.settingsService.getSettings();
-    _.each(this.settings.history.reverse(), (item) => {
+    console.log('this.settings.history', this.settings.history);
+    _.each(this.settings.history.slice(-7).reverse(), (item) => {
       console.log('item', item);
       this.history.push({
         item: kafizma['kafisma' + item.kafisma],
         component: PageView,
         note: moment(item.date).format('DD.MM.YY HH:mm'),
-        page: item.page,
-        scroll: item.scroll
+        progress: item.progress,
+        page: item.page
       });
     });
     console.log('loadHistory', this.history);

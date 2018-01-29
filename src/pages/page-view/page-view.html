@@ -10,7 +10,8 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title [ngClass]="{'irmologion' : (settings.textSource === 'cs' && !forceTitleRu)}">{{title}}</ion-title>
+    <ion-title [ngClass]="{'irmologion' : (settings.textSource === 'cs' && !forceTitleRu)}">
+      <span menuToggle >{{title}}</span></ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="setBookMark()"
               [ngClass]="{'not-marked': !isMarked()}"
