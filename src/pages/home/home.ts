@@ -31,7 +31,7 @@ export class HomePage {
   }
 
   ionViewDidEnter(): void {
-    if (this.settingsService.settings.lastPlace && !(<any>window).justOpened) {
+    if (this.settingsService.settings.lastPlace && !(<any>window).justOpened && this.history[0]) {
       (<any>window).justOpened = true;
       this.openPage(this.history[0]);
     }

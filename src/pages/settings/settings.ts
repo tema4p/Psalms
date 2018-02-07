@@ -28,6 +28,9 @@ export class SettingsPage {
 
   ionViewWillLeave() {
     console.log('SettingsPage Will Leave');
+    if (this.settings.textSource === 'cs') {
+      this.settings.repose = false;
+    }
     this.settingsService.saveSettings(this.settings);
   }
 

@@ -14,3 +14,13 @@ page-needs {
     }
   }
 }
+
+.night {
+  page-needs {
+    ion-content .scroll-content {
+      a {
+        color: #de774e;
+      }
+    }
+  }
+}

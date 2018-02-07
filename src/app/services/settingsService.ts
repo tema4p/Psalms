@@ -87,6 +87,9 @@ export class SettingsService {
 
   getSettings(): any {
     this.fixAndroidCsJustify();
+    if (this.settings.textSource === 'cs') {
+      this.settings.repose = false;
+    }
     return _.clone(this.settings);
   }
 
