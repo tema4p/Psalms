@@ -28,7 +28,7 @@
       <i *ngIf="!s.t">{{s.n2}}</i><span [innerHTML]="s.v2 | safeHtml"></span><br/>
     </span>
 
-    <div class="sreda" *ngIf="s.s && settings.textSource2 == 0">
+    <div class="sreda" *ngIf="s.s">
       <span class="sreda-label irmologion" *ngIf="settings.textSource === 'cs'" >[СредA.]</span>
       <span class="sreda-label" *ngIf="settings.textSource === 'ru'">[Среда:]</span>
       <span class="sreda-label" *ngIf="settings.textSource === 'sn'">[Середина кафизмы]</span>
