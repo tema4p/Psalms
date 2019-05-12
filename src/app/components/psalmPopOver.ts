@@ -49,7 +49,7 @@ export class PsalmPopover {
       this.settings.psalms = _.sortBy(this.settings.psalms);
       this.settingsService.saveSettings(this.settings);
       let toast = this.toastCtrl.create({
-        message: `Псалом ${+this.psalmId} добавлен в избарнное`,
+        message: `Псалом ${+this.psalmId} добавлен в избранное`,
         duration: 3000
       });
       toast.present();
@@ -57,7 +57,7 @@ export class PsalmPopover {
       this.settings.psalms = _.without(this.settings.psalms, this.psalmId);
       this.settingsService.saveSettings(this.settings);
       let toast = this.toastCtrl.create({
-        message: `Псалом ${+this.psalmId} удален из избарнного`,
+        message: `Псалом ${+this.psalmId} удален из избранного`,
         duration: 3000
       });
       toast.present();
