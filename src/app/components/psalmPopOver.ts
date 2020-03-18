@@ -13,7 +13,7 @@ import {SinodPage} from "../../pages/sinod/sinod";
     <ion-list>
       <ion-list-header>{{title}}</ion-list-header>
       <button ion-item (click)="setPsalmFavorite()" *ngIf="!isMarked()">Добавить в избранное</button>
-      <button ion-item (click)="setPsalmFavorite()" *ngIf="isMarked()">Удалить из избарнного</button>
+      <button ion-item (click)="setPsalmFavorite()" *ngIf="isMarked()">Удалить из избранного</button>
     </ion-list>
   `
 })
